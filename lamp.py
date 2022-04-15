@@ -48,5 +48,5 @@ def translate(word, language):
   return dictionary.translate(self=dictionary, term=word, language=language)
 
 ## CODE
-p1 = load_image("skew_test_images/p1.jpg")
+p1 = load_image("photos with raspberry pi cam/test1.jpg")
 print(ocr(correct_skew(p1)))
