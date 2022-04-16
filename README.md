@@ -6,7 +6,7 @@ Any of you can edit this file or add additional files, just remember to push you
 
 Raspberry Pi username: sumayyah <br />
 Raspberry Pi password: sumayyah <br />
-Raspberry Pi IP address: 10.19.29.62 <br />
+Raspberry Pi IP address: 10.18.248.180 <br />
 # Libraries:
 skew correction library: https://github.com/fatihsucu/python-skew-correction <br />
 ocr text detection library: https://pypi.org/project/pytesseract/#:~:text=Python%2Dtesseract%20is%20an%20optical,for%20Google%27s%20Tesseract%2DOCR%20Engine. <br />
