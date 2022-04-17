@@ -21,9 +21,8 @@ def show_image(image):
 def getBox(image):
   return pytesseract.image_to_boxes(image)
 
-p1 = load_image("photos with raspberry pi cam/test1.jpg")
-#print(ocr(p1))
-#print(getBox(p1))
+#p1 = load_image("photos with raspberry pi cam/test1.jpg")
+p1 = load_image("photos with raspberry pi cam/img2_stand.jpg")
 
 in_path = 'photos with raspberry pi cam/test1.jpg'
 out_path = 'images_crop/1.jpg'
