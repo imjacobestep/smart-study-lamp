@@ -22,4 +22,5 @@ def save_image(image, name):
 p1 = io.imread('skew_test_images/p1.jpg')
 
 #show_image(p1)
-show_image(correct_skew(p1))
+deskewed = correct_skew(p1)
+show_image(deskewed)
