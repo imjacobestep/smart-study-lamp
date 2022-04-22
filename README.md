@@ -4,8 +4,8 @@ We can share our code here. <br />
 This is a readme file, where we can add important links, the pi IP address, etc. <br />
 Any of you can edit this file or add additional files, just remember to push your changes (the desktop UI or web versions make this easiest instead of command line) <br />
 
-Raspberry Pi username: sumayyah <br />
-Raspberry Pi password: sumayyah <br />
+Raspberry Pi username: team13 <br />
+Raspberry Pi password: team13 <br />
 Raspberry Pi IP address: 10.18.243.180 <br />
 # Libraries:
 ocr text detection library: https://pypi.org/project/pytesseract/#:~:text=Python%2Dtesseract%20is%20an%20optical,for%20Google%27s%20Tesseract%2DOCR%20Engine. <br />
