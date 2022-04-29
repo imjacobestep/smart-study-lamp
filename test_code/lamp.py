@@ -5,7 +5,7 @@
 import ocr_test
 import camera_button
 import definition_test
-import translation_test
+import test_code.translation_test as translation_test
 import tts_test
 import camera_button
 import crop_morphology
