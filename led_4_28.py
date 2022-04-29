@@ -29,7 +29,6 @@ pixels = neopixel.NeoPixel(
     pixel_pin, num_pixels, brightness=1, auto_write=False, pixel_order=ORDER
 )
 
-
 # Create sensor object, communicating over the board's default I2C bus
 i2c = board.I2C()  # uses board.SCL and board.SDA
 
