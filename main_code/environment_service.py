@@ -9,6 +9,9 @@ import utilities
 ## VARIABLES ##
 warm = [250, 238, 50] #warm color values
 cool = [255, 255, 255] #cool color values
+middle=[(x+y)/2 for (x,y) in zip(warm,cool)]
+colorseq=[cool,middle,warm]
+current_color = 1
 
 optimal_brightness = 110
 
@@ -26,35 +29,50 @@ isMorning = True
 
 ## FUNCTIONS ##
 
+def cycle_colors():
+    if current_color <= 1:
+        current_color += 1
+    else:
+        current_color = 0
+    set_color(colorseq[current_color])
 
+def cycle_brightness():
+    if brightness < 1:
+        brighter()
+    else:
+        brightness = 0
+        set_color(current_color)
+
+def play_sound(sound):
+    if sound == 0:
+        print("play entrance sound")
+    else:
+        print("play exit sound")
+
+def set_color(color):
+    value = tuple([x*brightness for x in color])
+    pixels.fill(color)
+    pixels.show()
 
 def night_dim():
     isMorning = False
     brightness=0.2
-    color=tuple([x*brightness for x in warm])
-    pixels.fill(color)
-    pixels.show()
+    set_color(warm)
 
 def night_bright():
     isMorning = False
     brightness=1
-    color=tuple([x*brightness for x in warm])
-    pixels.fill(color)
-    pixels.show()
+    set_color(warm)
         
 def morning_dim():
     isMorning = True
     brightness=0.2
-    color=tuple([x*brightness for x in cool])
-    pixels.fill(color)
-    pixels.show()
+    set_color(cool)
     
 def morning_bright():
     isMorning = True
     brightness=1
-    color=tuple([x*brightness for x in cool])
-    pixels.fill(color)
-    pixels.show()
+    set_color(cool)
 
 def brighter():
     if brightness < 1.0:

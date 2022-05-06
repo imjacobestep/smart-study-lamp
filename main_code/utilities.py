@@ -5,7 +5,13 @@ from matplotlib import pyplot as plt
 import time
 
 ## VARIABLES ##
-
+pin_table = {
+  "led brightness": 17,
+  "led color": 27,
+  "auto switch": 5,
+  "led data": 10,
+  "camera switch": 19,
+}
 
 ## FUNCTIONS ##
 def load_image(filepath):

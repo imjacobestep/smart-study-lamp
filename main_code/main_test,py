@@ -1,0 +1,29 @@
+from ctypes import util
+import camera_service
+import environment_service
+import utilities
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_UP) #auto switch
+GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP) #LED brightness button
+GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP) #LED color button
+GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP) #camera switch
+
+def test_learning_env():
+    environment_service.play_sound(0)
+    environment_service.set_color([0, 0, 255]) #create learning environment
+
+    environment_service.speak_definition("test")
+
+    environment_service.play_sound(1)
+    environment_service.set_color(environment_service.current_color) #exit learning environment
+    utilities.wait(5)
+
+def test_adjustment():
+    for i in range(10):
+        environment_service.cycle_brightness
+        utilities.wait(2)
+    for i in range(3):
+        environment_service.cycle_colors
+        utilities.wait(2)

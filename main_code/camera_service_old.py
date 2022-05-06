@@ -10,7 +10,6 @@ import pyttsx3
 from sympy import false, true
 import mediapipe as mp
 import utilities
-import environment_service
 
 ## VARIABLES ##
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
@@ -30,56 +29,63 @@ def start_camera():
 def stop_camera():
     cap.release()
 
-def track_movement(x, y):
+def track_movement(x, y, finger_tracking):
 
     if(len(x_pos) > 0):
         x_pos.pop(0)
         y_pos.pop(0)
     x_pos.append(x)
     y_pos.append(y)
+
+    swipe = False
     point = False
+
+    if( (x_pos[len(x_pos) // 2] - x_pos[0]) > 200 ):
+        swipe = True
+    else:
+        swipe = False
 
     if( ( (x_pos[len(x_pos) - 1] - x_pos[0]) < 4 ) and ( (y_pos[len(y_pos) - 1] - y_pos[0]) < 4 ) and ( (y_pos[len(y_pos) // 2] - y_pos[0]) < 4 ) ):
         point = True
     else:
         point = False
 
-    if(point):
-        do_point(x,y)
+    if(swipe):
+        page_turn()
+        print("swipe")
+    if(finger_tracking and point):
+        get_definition(x,y)
         print("point")
     
     return null_debug_action
 
-def do_point(x,y):
-    environment_service.play_sound(0)
-    environment_service.set_color([0, 0, 255]) #create learning environment
-
-    success, image = cap.read()
-    processed = process_image(image, x, y)
-    data = pytesseract.image_to_data(processed, output_type=pytesseract.Output.DICT)
-    word = get_word(x,y, data)
+def get_definition(x,y):
+    word = get_word(x,y)
     speak_definition(word)
 
-    environment_service.play_sound(1)
-    environment_service.set_color(environment_service.current_color) #exit learning environment
-    utilities.wait(5)
+def page_turn():
+    utilities.wait(2)
+    success, image = cap.read()
+    latest_page = get_ocr(image)
+    word_stuff()
 
-def process_image(image, x, y):
-    left = x - 150
-    top = y - 75
-    right = x + 150
-    bottom = y
+def word_stuff():
+    text = ''
+    for i in range(len(latest_page['text'])):
+        text += latest_page["text"][i]
+    print("Do stuff with words")
+    print(text)
 
-    image = image.crop((left, top, right, bottom))
-
+def process_image(image):
     img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     img_threshold = cv2.threshold(img_gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
     return img_threshold
 
-def get_word(data, image):
-    finger_x, finger_y = image.shape()
-    finger_x = finger_x/2
-    total_boxes = len(data['text'])
+def get_ocr(image):
+    return pytesseract.image_to_data(image, output_type=pytesseract.Output.DICT)
+
+def get_word(finger_x, finger_y):
+    total_boxes = len(latest_page['text'])
     margin = 5
     for sequence_number in range(total_boxes):
         if float(latest_page['conf'][sequence_number]) >30:
@@ -87,7 +93,7 @@ def get_word(data, image):
             x2, y2 = x+w, y-h
             if( (x < finger_x < x2) and ((y-margin) < finger_y < y2) ):
                 return latest_page['text'][sequence_number]
-    return null_debug_action
+    return ''
 
 def speak_definition(word):
     definition = dictionary.meaning(word)

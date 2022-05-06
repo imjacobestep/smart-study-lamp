@@ -1,9 +1,12 @@
 ## IMPORTS ##
 from sympy import true
-import light_service
+import environment_service
 import camera_service
 import utilities
 import threading
+import time
+from datetime import datetime
+import RPi.GPIO as GPIO
 
 ## VARIABLES ##
 lock = threading.Lock()
@@ -13,15 +16,23 @@ finger_tracking_switch = True
 auto_light_switch = True
 light_switch = True
 
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_UP) #auto switch
+GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP) #LED brightness button
+GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP) #LED color button
+GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP) #camera switch
+
 camera = threading.Thread(target=camera_service.camera_process, args=(finger_tracking_switch))
-light = threading.Thread(target=light_service.light_process, args=())
+light = threading.Thread(target=environment_service.light_process, args=())
 
 ## FUNCTIONS ##
 def check_pin(pin):
-    return True
+    if GPIO.input(utilities.pin_table[pin]):
+        return True
+    return False
 
 def camera_change():
-    if check_pin("camera"):
+    if check_pin("camera switch"):
         if not camera_switch:
             camera_switch = True
             start_camera()
@@ -30,20 +41,8 @@ def camera_change():
             camera_switch = False
             stop_camera()
 
-def finger_change():
-    if check_pin("finger"):
-        if not finger_tracking_switch:
-            finger_tracking_switch = True
-            stop_camera()
-            start_camera()
-    else:
-        if finger_tracking_switch:
-            finger_tracking_switch = False
-            stop_camera()
-            start_camera()
-
 def auto_change():
-    if check_pin("auto"):
+    if check_pin("auto switch"):
         if not auto_light_switch:
             auto_light_switch = True
             start_light()
@@ -69,15 +68,14 @@ def stop_light():
     light.join()
 
 def check_adjust():
-    if check_pin("increase_button"):
-        light_service.brighter()
-    if check_pin("decrease_button"):
-        light_service.dimmer()
+    if check_pin("led color"):
+        environment_service.cycle_colors()
+    if check_pin("led brightness"):
+        environment_service.cycle_brightness()
 
 ## MAIN LOOP ##
 while True:
     camera_change()
-    finger_change()
     auto_change()
     if not auto_light_switch:
         check_adjust()
