@@ -1,0 +1,6 @@
+Pin layouts
+LED data pin: GPIO 10
+LED switch pin: PGIO 5
+Brightness button pin: GPIO 17
+Color button pin: GPIO 27
+Camera switch pin: GPIO 19
