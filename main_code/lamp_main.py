@@ -17,10 +17,10 @@ auto_light_switch = True
 light_switch = True
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_UP) #auto switch
-GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP) #LED brightness button
-GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP) #LED color button
-GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP) #camera switch
+GPIO.setup(utilities.pin_table["auto switch"], GPIO.IN, pull_up_down=GPIO.PUD_UP) #auto switch
+GPIO.setup(utilities.pin_table["led brightness"], GPIO.IN, pull_up_down=GPIO.PUD_UP) #LED brightness button
+GPIO.setup(utilities.pin_table["led color"], GPIO.IN, pull_up_down=GPIO.PUD_UP) #LED color button
+GPIO.setup(utilities.pin_table["camera switch"], GPIO.IN, pull_up_down=GPIO.PUD_UP) #camera switch
 
 camera = threading.Thread(target=camera_service.camera_process, args=(finger_tracking_switch))
 light = threading.Thread(target=environment_service.light_process, args=())
