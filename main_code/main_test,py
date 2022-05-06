@@ -27,3 +27,13 @@ def test_adjustment():
     for i in range(3):
         environment_service.cycle_colors
         utilities.wait(2)
+
+def test_tracking():
+    print("placeholder")
+
+while True:
+    userIn = input("what do you want to test?")
+    if userIn == "adjustment":
+        test_adjustment()
+    if userIn == "environment":
+        test_learning_env()
