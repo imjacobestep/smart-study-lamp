@@ -52,7 +52,7 @@ def track_movement(x, y):
 
 def do_point(x,y):
     environment_service.play_sound(0)
-    environment_service.set_color([0, 0, 255]) #create learning environment
+    environment_service.set_color([0,255, 40]) #create learning environment
 
     success, image = cap.read()
     processed = process_image(image, x, y)

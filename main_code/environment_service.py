@@ -12,6 +12,7 @@ cool = [255, 255, 255] #cool color values
 middle=[(x+y)/2 for (x,y) in zip(warm,cool)]
 colorseq=[cool,middle,warm]
 current_color = 1
+target_lux=70
 
 optimal_brightness = 110
 
@@ -41,7 +42,7 @@ def cycle_brightness():
         brighter()
     else:
         brightness = 0
-        set_color(current_color)
+        set_color(colorseq[current_color])
 
 def play_sound(sound):
     if sound == 0:
@@ -51,67 +52,69 @@ def play_sound(sound):
 
 def set_color(color):
     value = tuple([x*brightness for x in color])
-    pixels.fill(color)
+    pixels.fill(value)
     pixels.show()
 
 def night_dim():
     isMorning = False
+    current_color = 2
     brightness=0.2
-    set_color(warm)
+    set_color(colorseq[current_color])
 
 def night_bright():
     isMorning = False
+    current_color = 2
     brightness=1
-    set_color(warm)
+    set_color(colorseq[current_color])
         
 def morning_dim():
     isMorning = True
+    current_color = 0
     brightness=0.2
-    set_color(cool)
+    set_color(colorseq[current_color])
     
 def morning_bright():
     isMorning = True
+    current_color = 0
     brightness=1
-    set_color(cool)
+    set_color(colorseq[current_color])
 
 def brighter():
     if brightness < 1.0:
         brightness += 0.1
-        if isMorning:
-            color=tuple([x*brightness for x in cool])
-        else:
-            color=tuple([x*brightness for x in warm])
-    pixels.fill(color)
-    pixels.show()
+        set_color(colorseq[current_color])
 
 def dimmer():
     if brightness > 0.0:
         brightness -= 0.1
-        if isMorning:
-            color=tuple([x*brightness for x in cool])
-        else:
-            color=tuple([x*brightness for x in warm])
-    pixels.fill(color)
-    pixels.show()
+        set_color(colorseq[current_color])
 
 def start_light():
     looping = True
+    light_process()
 
 def stop_light():
     looping = False
 
+def adapt_brightness():
+    print('')
+
 def light_process():
     while looping:
         time = datetime.now().strftime("%H:%M:%S")
-        lux = sensor.lux
-        print(lux)
-        if "06:00:00" < time <= "17:00:00": #day
-            if lux<optimal_brightness:
-                morning_bright()
-            else:
-                morning_dim()
+        if "06:00:00" < time <= "17:00:00": #if during day
+            current_color = 0
         else:
-            if lux<optimal_brightness:
-                night_bright()
-            else:
-                night_dim()
+            current_color = 2
+        
+        brightness = 0 #turn off light
+        set_color(colorseq[current_color])
+
+        lux = sensor.lux #read sensor
+        print(lux)
+
+        if lux < target_lux:
+            brighter()
+        elif lux > target_lux:
+            dimmer()
+        set_color(colorseq[current_color])
