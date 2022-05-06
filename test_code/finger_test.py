@@ -1,6 +1,5 @@
 import cv2
 from sympy import false, true
-#import ocr_test
 import mediapipe as mp
 
 mp_drawing = mp.solutions.drawing_utils

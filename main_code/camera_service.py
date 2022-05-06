@@ -126,7 +126,7 @@ def camera_process(finger_tracking):
                         f'{x}, '
                         f'{y})'
                     )
-                    track_movement(x, y, finger_tracking)
+                    track_movement(x, y)
                     mp_drawing.draw_landmarks(
                         image,
                         hand_landmarks,
