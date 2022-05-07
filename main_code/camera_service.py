@@ -91,7 +91,7 @@ def get_word(data, image):
 
 def speak_definition(word):
     definition = dictionary.meaning(word)
-    output = f"This word is pronounced {word}. Here is its definition {definition}."
+    output = (f"This word is pronounced {word}. Here is its definition {definition}.")
     pyttsx3.speak(output)
 
 ## MAIN PROCESS ##
