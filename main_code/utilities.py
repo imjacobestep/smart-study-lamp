@@ -13,6 +13,13 @@ pin_table = {
   "camera switch": 19,
 }
 
+colors_table = {
+    "warm": [253, 150, 50],
+    "cool": [100, 100, 255],
+    "neutral": [255, 255, 255],
+    "special": [0, 255, 40],
+}
+
 ## FUNCTIONS ##
 def load_image(filepath):
     img = io.imread(filepath)

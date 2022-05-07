@@ -7,10 +7,7 @@ from datetime import datetime
 import utilities
 
 ## VARIABLES ##
-warm = [250, 238, 50] #warm color values
-cool = [255, 255, 255] #cool color values
-middle=[(x+y)/2 for (x,y) in zip(warm,cool)]
-colorseq=[cool,middle,warm]
+colorseq=[utilities.colors_table["cool"],utilities.colors_table["neutral"],utilities.colors_table["warm"]]
 current_color = 1
 target_lux=70
 
@@ -107,8 +104,8 @@ def light_process():
         else:
             current_color = 2
         
-        brightness = 0 #turn off light
-        set_color(colorseq[current_color])
+        #brightness = 0 #turn off light
+        #set_color(colorseq[current_color])
 
         lux = sensor.lux #read sensor
         print(lux)
