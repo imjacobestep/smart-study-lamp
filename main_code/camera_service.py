@@ -1,6 +1,6 @@
 ## IMPORTS ##
 import pyparsing
-from pyparsing import null_debug_action
+#from pyparsing import null_debug_action
 import pytesseract
 from io import BytesIO
 from skimage import io
@@ -9,20 +9,21 @@ import cv2
 from PyDictionary import PyDictionary
 import pyttsx3
 from sympy import false, true
+#import mediapipe as mp
 import mediapipe as mp
 import utilities
 import environment_service
 
 ## VARIABLES ##
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-latest_page = null
+latest_page = None
 dictionary = PyDictionary
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
 x_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 y_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-cap = null
+cap = None
 
 ## FUNCTIONS ##
 def start_camera():
@@ -49,7 +50,7 @@ def track_movement(x, y):
         do_point(x,y)
         print("point")
     
-    return null_debug_action
+    return None
 
 def do_point(x,y):
     environment_service.play_sound(0)
@@ -88,7 +89,7 @@ def get_word(data, image):
             x2, y2 = x+w, y-h
             if( (x < finger_x < x2) and ((y-margin) < finger_y < y2) ):
                 return latest_page['text'][sequence_number]
-    return null_debug_action
+    return None
 
 def speak_definition(word):
     definition = dictionary.meaning(word)
