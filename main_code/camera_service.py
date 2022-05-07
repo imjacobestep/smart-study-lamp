@@ -1,4 +1,5 @@
 ## IMPORTS ##
+import pyparsing
 from pyparsing import null_debug_action
 import pytesseract
 from io import BytesIO
