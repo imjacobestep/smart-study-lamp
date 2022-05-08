@@ -1,0 +1,34 @@
+terminal setup:
+
+Camera:
+turn on camera, i2c and hhs:
+
+sudo raspi-config
+
+circuit python:
+
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install python3-pip
+sudo pip3 install --upgrade setuptools
+
+cd ~
+sudo pip3 install --upgrade adafruit-python-shell
+wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/raspi-blinka.py
+sudo python3 raspi-blinka.py
+
+ls /dev/i2c* /dev/spi*
+
+python3 blinktest.py
+
+light:
+
+pip3 install adafruit-circuitpython-neopixel
+
+sudo pip3 install adafruit-circuitpython-neopixel
+
+Sensor:
+
+pip3 install adafruit-circuitpython-tsl2591
+
+sudo pip3 install adafruit-circuitpython-tsl2591
