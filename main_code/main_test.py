@@ -22,9 +22,9 @@ GPIO.setup(utilities.pin_table["camera switch"], GPIO.IN, pull_up_down=GPIO.PUD_
 
 def test_learning_env():
     environment_service.play_sound(0)
-    environment_service.set_color([0, 0, 255]) #create learning environment
+    environment_service.set_color(utilities.colors_table["special"]) #create learning environment
 
-    environment_service.speak_definition("test")
+    camera_service.speak_definition("test")
 
     environment_service.play_sound(1)
     environment_service.set_color(environment_service.current_color) #exit learning environment
