@@ -13,7 +13,7 @@ target_lux=70
 
 optimal_brightness = 110
 
-pixel_pin = board.D18 #pin connected to data input on strip, must be D10, D12, D18, or D21
+pixel_pin = board.D10 #pin connected to data input on strip, must be D10, D12, D18, or D21
 num_pixels = 20 #number of neopixels
 ORDER = neopixel.GRB #order of pixel colors
 pixels = neopixel.NeoPixel(
