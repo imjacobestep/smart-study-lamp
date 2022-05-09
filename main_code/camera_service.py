@@ -60,7 +60,7 @@ def do_point(image, x,y):
     #success, image = cap.read()
     processed = process_image(image, x, y)
     data = pytesseract.image_to_data(processed, output_type=pytesseract.Output.DICT)
-    word = get_word(x,y, data)
+    word = get_word(x,y, data, processed)
     speak_definition(word)
 
     environment_service.play_sound(1)
@@ -79,7 +79,7 @@ def process_image(image, x, y):
     ret = imdata.crop((left, top, right, bottom))
     return ret
 
-def get_word(x, y, data):
+def get_word(x, y, data, image):
     finger_x, finger_y = image.shape()
     finger_x = finger_x/2
     total_boxes = len(data['text'])
