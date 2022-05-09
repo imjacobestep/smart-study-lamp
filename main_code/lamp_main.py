@@ -59,15 +59,17 @@ def start_camera():
 
 def stop_camera():
     camera_service.stop_camera()
-    camera.join()
+    if camera.isAlive:
+        camera.join()
 
 def start_light():
     light_service.start_light()
     light.start()
 
 def stop_light():
-    light_service.stop_light()
-    light.join()
+    environment_service.stop_light()
+    if light.isAlive:
+        light.join()
 
 def check_adjust():
     if check_pin("led color"):
