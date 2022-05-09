@@ -51,11 +51,11 @@ def track_movement(x, y):
         print("point")
 
 # For webcam input:
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 with mp_hands.Hands(
-    model_complexity=0,
     min_detection_confidence=0.5,
     min_tracking_confidence=0.5) as hands:
+    print("passed with hands")
     while cap.isOpened():
         success, image = cap.read()
         if not success:

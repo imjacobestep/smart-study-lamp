@@ -81,7 +81,7 @@ def test_tracking():
                     y = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y * image_height
                     print("Index fingertip at: " + str(x) + ", " + str(y))
                     #track_movement(x, y)
-                    camera_service.track_movement(x,y)
+                    camera_service.track_movement(image, x,y)
                     mp_drawing.draw_landmarks(
                         image,
                         hand_landmarks,

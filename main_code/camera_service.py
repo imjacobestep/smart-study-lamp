@@ -33,7 +33,7 @@ def stop_camera():
     global cap
     cap.release()
 
-def track_movement(x, y):
+def track_movement(image, x, y):
 
     if(len(x_pos) > 0):
         x_pos.pop(0)
@@ -48,16 +48,16 @@ def track_movement(x, y):
         point = False
 
     if(point):
-        do_point(x,y)
+        do_point(image, x,y)
         print("point")
     
     return None
 
-def do_point(x,y):
+def do_point(image, x,y):
     environment_service.play_sound(0)
     environment_service.set_color(utilities.colors_table["special"]) #create learning environment
 
-    success, image = cap.read()
+    #success, image = cap.read()
     processed = process_image(image, x, y)
     data = pytesseract.image_to_data(processed, output_type=pytesseract.Output.DICT)
     word = get_word(x,y, data)
@@ -125,7 +125,7 @@ def camera_process():
                     x = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x * image_width
                     y = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y * image_height
                     print("Index fingertip at: " + x + ", " + y)
-                    track_movement(x, y)
+                    track_movement(image, x, y)
                     mp_drawing.draw_landmarks(
                         image,
                         hand_landmarks,
