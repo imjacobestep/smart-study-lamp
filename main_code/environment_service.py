@@ -100,6 +100,7 @@ def adapt_brightness():
     print('')
 
 def light_process():
+    brightness = 1
     while looping:
         time = datetime.now().strftime("%H:%M:%S")
         if "06:00:00" < time <= "17:00:00": #if during day
