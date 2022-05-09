@@ -76,6 +76,7 @@ def check_adjust():
 
 ## MAIN LOOP ##
 while True:
+    camera_switch = camera_switch
     camera_change()
     auto_change()
     if not auto_light_switch:

@@ -86,7 +86,7 @@ def test_tracking():
     cap.release()
 
 while True:
-    userIn = input("what do you want to test? adj, env, cam, or auto")
+    userIn = input("what do you want to test? adj, env, cam, or auto: ")
     if userIn == "adj":
         test_adjustment()
     if userIn == "env":
