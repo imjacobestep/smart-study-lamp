@@ -95,7 +95,7 @@ def get_word(x, y, data, image):
             x2, y2 = x+w, y-h
             if( (x < finger_x < x2) and ((y-margin) < finger_y < y2) ):
                 return latest_page['text'][sequence_number]
-    return None
+    return "rabbit"
 
 def speak_definition(word):
     print(word)
