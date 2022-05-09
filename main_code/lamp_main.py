@@ -62,7 +62,7 @@ def stop_camera():
     camera.join()
 
 def start_light():
-    light_service.start_light()
+    environment_service.start_light()
     light.start()
 
 def stop_light():

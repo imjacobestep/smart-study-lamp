@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO
 import cv2
 from sympy import false, true
 import mediapipe as mp
-import lamp_main
+#import lamp_main
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -39,9 +39,9 @@ def test_adjustment():
         utilities.wait(2)
 
 def test_auto():
-    lamp_main.start_light()
+    environment_service.start_light()
     if cv2.waitKey(5) & 0xFF == 27:
-        lamp_main.stop_light()
+        environment_service.stop_light()
 
 def test_tracking():
     cap = cv2.VideoCapture(0)
