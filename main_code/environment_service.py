@@ -34,6 +34,7 @@ def cycle_colors():
         current_color += 1
     else:
         current_color = 0
+    print(colorseq[current_color])
     set_color(colorseq[current_color])
 
 def cycle_brightness():
@@ -41,7 +42,7 @@ def cycle_brightness():
         brighter()
     else:
         brightness = 0
-        set_color(colorseq[current_color])
+    set_color(colorseq[current_color])
 
 def play_sound(sound):
     if sound == 0:
