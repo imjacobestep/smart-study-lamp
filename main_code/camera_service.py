@@ -73,13 +73,11 @@ def process_image(image, x, y):
     right = x + 150
     bottom = y
 
-    imdata = im.fromarray(image)
-
-    image2 = imdata.crop((left, top, right, bottom))
-
     img_gray = cv2.cvtColor(image2, cv2.COLOR_BGR2GRAY)
     img_threshold = cv2.threshold(img_gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-    return img_threshold
+    imdata = im.fromarray(img_threshold)
+    ret = imdata.crop((left, top, right, bottom))
+    return ret
 
 def get_word(data, image):
     finger_x, finger_y = image.shape()
