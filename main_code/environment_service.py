@@ -95,6 +95,7 @@ def brighter():
     if brightness < 0.9:
         brightness += 0.1
         set_color(colorseq[current_color])
+    utilities.wait(0.5)
 
 def dimmer():
     global current_color
@@ -102,6 +103,7 @@ def dimmer():
     if brightness > 0.1:
         brightness -= 0.1
         set_color(colorseq[current_color])
+    utilities.wait(0.5)
 
 def start_light():
     looping = True
