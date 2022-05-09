@@ -1,4 +1,5 @@
 from ctypes import util
+from os import environ
 import camera_service
 import environment_service
 import utilities
@@ -32,11 +33,14 @@ def test_learning_env():
 
 def test_adjustment():
     for i in range(10):
-        environment_service.cycle_brightness
-        utilities.wait(2)
+        #environment_service.cycle_brightness
+        environment_service.brightness = i//10
+        environment_service.set_color(environment_service.current_color)
+        utilities.wait(1)
     for i in range(3):
-        environment_service.cycle_colors
-        utilities.wait(2)
+        #environment_service.cycle_colors
+        environment_service.set_color(environment_service.colorseq[i])
+        utilities.wait(1)
 
 def test_auto():
     environment_service.start_light()
