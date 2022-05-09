@@ -63,10 +63,11 @@ def do_point(image, x,y):
     data = pytesseract.image_to_data(processed, output_type=pytesseract.Output.DICT)
     word = get_word(x,y, data, processed)
     speak_definition(word)
+    utilities.wait(1)
 
     environment_service.play_sound(1)
-    environment_service.set_color(environment_service.current_color) #exit learning environment
-    utilities.wait(5)
+    environment_service.set_color(environment_service.colorseq[environment_service.current_color]) #exit learning environment
+    utilities.wait(2)
 
 def process_image(image, x, y):
     left = x - 300
