@@ -7,7 +7,7 @@ from datetime import datetime
 import utilities
 
 ## VARIABLES ##
-colorseq=[utilities.colors_table["cool"][0],utilities.colors_table["neutral"][0],utilities.colors_table["warm"][0]]
+colorseq=[utilities.colors_table["cool"],utilities.colors_table["neutral"],utilities.colors_table["warm"]]
 global current_color
 current_color = 1
 target_lux=70
