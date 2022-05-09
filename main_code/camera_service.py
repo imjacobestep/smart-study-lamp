@@ -11,6 +11,7 @@ from sympy import false, true
 import mediapipe as mp
 import utilities
 import environment_service
+from PIL import Image as im
 
 ## VARIABLES ##
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
@@ -72,9 +73,11 @@ def process_image(image, x, y):
     right = x + 150
     bottom = y
 
-    image = image.crop((left, top, right, bottom))
+    imdata = im.fromarray(image)
 
-    img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    image2 = imdata.crop((left, top, right, bottom))
+
+    img_gray = cv2.cvtColor(image2, cv2.COLOR_BGR2GRAY)
     img_threshold = cv2.threshold(img_gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
     return img_threshold
 
