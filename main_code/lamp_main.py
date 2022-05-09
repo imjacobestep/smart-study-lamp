@@ -32,13 +32,13 @@ def check_pin(pin):
         return True
     return False
 
-def camera_change():
+def camera_change(cam):
     if check_pin("camera switch"):
-        if camera_switch == False:
+        if cam:
             camera_switch = True
             start_camera()
     else:
-        if camera_switch == True:
+        if cam:
             camera_switch = False
             stop_camera()
     print("no camera change")
@@ -82,8 +82,8 @@ def setup():
 ## MAIN LOOP ##
 
 while True:
-    camera_switch = camera_switch
-    camera_change()
+    setup()
+    camera_change(camera_switch)
     auto_change()
     if not auto_light_switch:
         check_adjust()
