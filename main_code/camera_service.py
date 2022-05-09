@@ -1,7 +1,7 @@
 ## IMPORTS ##
+from skimage import io
 import pytesseract
 from io import BytesIO
-from skimage import io
 from matplotlib import pyplot as plt
 import cv2
 from PyDictionary import PyDictionary
