@@ -92,7 +92,7 @@ def morning_bright():
 def brighter():
     global current_color
     global brightness
-    if brightness < 1.0:
+    if brightness < 0.9:
         brightness += 0.1
         set_color(colorseq[current_color])
 
