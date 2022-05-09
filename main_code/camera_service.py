@@ -69,9 +69,9 @@ def do_point(image, x,y):
     utilities.wait(5)
 
 def process_image(image, x, y):
-    left = x - 150
-    top = y - 75
-    right = x + 150
+    left = x - 300
+    top = y - 150
+    right = x + 300
     bottom = y
 
     img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
