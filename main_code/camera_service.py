@@ -12,6 +12,7 @@ import mediapipe as mp
 import utilities
 import environment_service
 from PIL import Image as im
+from numpy import asarray
 
 ## VARIABLES ##
 #pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
@@ -76,7 +77,8 @@ def process_image(image, x, y):
     img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     img_threshold = cv2.threshold(img_gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
     imdata = im.fromarray(img_threshold)
-    ret = imdata.crop((left, top, right, bottom))
+    cropped = imdata.crop((left, top, right, bottom))
+    ret = asarray(cropped)
     return ret
 
 def get_word(x, y, data, image):
