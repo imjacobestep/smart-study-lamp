@@ -16,7 +16,7 @@ pin_table = {
 colors_table = {
     "warm": [253, 150, 50],
     "cool": [100, 100, 255],
-    "neutral": [255, 255, 255],
+    "neutral": [254, 254, 254],
     "special": [0, 255, 40],
 }
 
