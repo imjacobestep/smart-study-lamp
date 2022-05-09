@@ -15,6 +15,9 @@ mp_hands = mp.solutions.hands
 x_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 y_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
+brightnesses = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 10]
+colors = [0, 1, 2]
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(utilities.pin_table["auto switch"], GPIO.IN, pull_up_down=GPIO.PUD_UP) #auto switch
 GPIO.setup(utilities.pin_table["led brightness"], GPIO.IN, pull_up_down=GPIO.PUD_UP) #LED brightness button
@@ -33,14 +36,16 @@ def test_learning_env():
     utilities.wait(5)
 
 def test_adjustment():
-    for i in range(10):
+    for b in brightnesses:
         #environment_service.cycle_brightness
-        environment_service.brightness = i//10
-        environment_service.set_color(environment_service.colorseq[environment_service.current_color])
+        #environment_service.brightness = i//10
+        environment_service.brightness = b
+        environment_service.set_color(utilities.colors_table["neutral"])
         utilities.wait(1)
-    for i in range(3):
+    for c in colors:
         #environment_service.cycle_colors
-        environment_service.set_color(environment_service.colorseq[i])
+        environment_service.brightness = 1
+        environment_service.set_color(environment_service.colorseq[c])
         utilities.wait(1)
 
 def test_auto():
