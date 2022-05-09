@@ -8,13 +8,14 @@ import utilities
 
 ## VARIABLES ##
 colorseq=[utilities.colors_table["cool"],utilities.colors_table["neutral"],utilities.colors_table["warm"]]
+global current_color
 current_color = 1
 target_lux=70
 
 optimal_brightness = 110
 
 pixel_pin = board.D10 #pin connected to data input on strip, must be D10, D12, D18, or D21
-num_pixels = 20 #number of neopixels
+num_pixels = 60 #number of neopixels
 ORDER = neopixel.GRB #order of pixel colors
 pixels = neopixel.NeoPixel(
     pixel_pin, num_pixels, brightness=1, auto_write=False, pixel_order=ORDER
@@ -22,6 +23,7 @@ pixels = neopixel.NeoPixel(
 i2c = board.I2C() #sensor object, uses board's I2C bus, uses board.SCL and board.SDA
 sensor = adafruit_tsl2591.TSL2591(i2c) #initialize sensor
 looping = True
+global brightness
 brightness=1
 isMorning = True
 
