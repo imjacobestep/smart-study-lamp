@@ -26,6 +26,7 @@ def test_learning_env():
     environment_service.set_color(utilities.colors_table["special"]) #create learning environment
 
     camera_service.speak_definition("test")
+    utilities.wait(2)
 
     environment_service.play_sound(1)
     environment_service.set_color(environment_service.colorseq[environment_service.current_color]) #exit learning environment
@@ -48,9 +49,8 @@ def test_auto():
     environment_service.stop_light()
 
 def test_tracking():
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(-1)
     with mp_hands.Hands(
-        model_complexity=0,
         min_detection_confidence=0.5,
         min_tracking_confidence=0.5) as hands:
         while cap.isOpened():

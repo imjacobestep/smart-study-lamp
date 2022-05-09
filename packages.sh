@@ -3,6 +3,7 @@ sudo pip3 install --upgrade setuptools
 echo "$(tput setaf 1) $(tput setab 2)--------SPEECH/WORD PACKAGES--------"
 sudo pip3 install PyDictionary
 sudo pip3 install pyttsx3
+sudo apt install espeak
 echo "$(tput setaf 1) $(tput setab 3)--------UTILITY PACKAGES--------"
 sudo pip3 install sympy
 sudo pip3 install thread6
