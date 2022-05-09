@@ -22,12 +22,12 @@ mp_hands = mp.solutions.hands
 x_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 y_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 global cap
-cap = cv2.VideoCapture(-1)
+cap = cv2.VideoCapture(1)
 
 ## FUNCTIONS ##
 def start_camera():
     global cap
-    cap = cv2.VideoCapture(-1)
+    cap = cv2.VideoCapture(1)
 
 def stop_camera():
     global cap

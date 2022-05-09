@@ -79,7 +79,7 @@ def test_tracking():
                 for hand_landmarks in results.multi_hand_landmarks:
                     x = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x * image_width
                     y = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y * image_height
-                    print("Index fingertip at: " + x + ", " + y)
+                    print("Index fingertip at: " + str(x) + ", " + str(y))
                     #track_movement(x, y)
                     camera_service.track_movement(x,y)
                     mp_drawing.draw_landmarks(
