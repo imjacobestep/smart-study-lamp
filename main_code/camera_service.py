@@ -14,7 +14,7 @@ import environment_service
 from PIL import Image as im
 
 ## VARIABLES ##
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+#pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 latest_page = None
 dictionary = PyDictionary
 mp_drawing = mp.solutions.drawing_utils
@@ -79,7 +79,7 @@ def process_image(image, x, y):
     ret = imdata.crop((left, top, right, bottom))
     return ret
 
-def get_word(data, image):
+def get_word(x, y, data):
     finger_x, finger_y = image.shape()
     finger_x = finger_x/2
     total_boxes = len(data['text'])
