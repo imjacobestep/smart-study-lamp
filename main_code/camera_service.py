@@ -95,7 +95,7 @@ def speak_definition(word):
     pyttsx3.speak(output)
 
 ## MAIN PROCESS ##
-def camera_process(finger_tracking):
+def camera_process():
     with mp_hands.Hands(
         model_complexity=0,
         min_detection_confidence=0.5,

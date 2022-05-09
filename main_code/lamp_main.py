@@ -11,8 +11,9 @@ import RPi.GPIO as GPIO
 ## VARIABLES ##
 lock = threading.Lock()
 
+global camera_switch
 camera_switch = True
-finger_tracking_switch = True
+global auto_light_switch
 auto_light_switch = True
 light_switch = True
 
@@ -22,7 +23,7 @@ GPIO.setup(utilities.pin_table["led brightness"], GPIO.IN, pull_up_down=GPIO.PUD
 GPIO.setup(utilities.pin_table["led color"], GPIO.IN, pull_up_down=GPIO.PUD_UP) #LED color button
 GPIO.setup(utilities.pin_table["camera switch"], GPIO.IN, pull_up_down=GPIO.PUD_UP) #camera switch
 
-camera = threading.Thread(target=camera_service.camera_process, args=(finger_tracking_switch))
+camera = threading.Thread(target=camera_service.camera_process, args=())
 light = threading.Thread(target=environment_service.light_process, args=())
 
 ## FUNCTIONS ##
@@ -74,7 +75,12 @@ def check_adjust():
     if check_pin("led brightness"):
         environment_service.cycle_brightness()
 
+def setup():
+    camera_switch = True
+    auto_light_switch = True
+
 ## MAIN LOOP ##
+
 while True:
     camera_switch = camera_switch
     camera_change()
