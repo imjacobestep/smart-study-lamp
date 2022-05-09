@@ -21,6 +21,7 @@ pixels = neopixel.NeoPixel(
 )
 i2c = board.I2C() #sensor object, uses board's I2C bus, uses board.SCL and board.SDA
 sensor = adafruit_tsl2591.TSL2591(i2c) #initialize sensor
+adafruit_tsl2591.GAIN_LOW
 looping = True
 brightness=1
 isMorning = True
