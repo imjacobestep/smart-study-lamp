@@ -84,6 +84,7 @@ def process_image(image, x, y):
 def get_word(x, y, data, image):
     #print('width: ', im.shape[1])
     #print('height:', im.shape[0])
+    latest_page = data
     finger_x, finger_y = image.shape
     finger_x = finger_x/2
     total_boxes = len(data['text'])
