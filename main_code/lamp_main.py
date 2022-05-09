@@ -32,6 +32,7 @@ def check_pin(pin):
     return False
 
 def camera_change():
+    camera_switch = camera_switch
     if check_pin("camera switch"):
         if not camera_switch:
             camera_switch = True
