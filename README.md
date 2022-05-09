@@ -4,7 +4,7 @@ We can share our code here. <br />
 This is a readme file, where we can add important links, the pi IP address, etc. <br />
 Any of you can edit this file or add additional files, just remember to push your changes (the desktop UI or web versions make this easiest instead of command line) <br />
 
-Raspberry Pi username: team13 <br />
+Raspberry Pi username: pi <br />
 Raspberry Pi password: team13 <br />
 Raspberry Pi IP address: 10.19.49.113 <br />
 # Libraries:
