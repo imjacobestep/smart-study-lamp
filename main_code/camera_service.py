@@ -79,7 +79,7 @@ def process_image(image, x, y):
     imdata = im.fromarray(img_threshold)
     cropped = imdata.crop((left, top, right, bottom))
     ret = asarray(cropped)
-    return ret
+    return img_threshold
 
 def get_word(x, y, data, image):
     #print('width: ', im.shape[1])
