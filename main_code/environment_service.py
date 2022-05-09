@@ -8,7 +8,6 @@ import utilities
 
 ## VARIABLES ##
 colorseq=[utilities.colors_table["cool"],utilities.colors_table["neutral"],utilities.colors_table["warm"]]
-global current_color
 current_color = 1
 target_lux=70
 
@@ -23,13 +22,13 @@ pixels = neopixel.NeoPixel(
 i2c = board.I2C() #sensor object, uses board's I2C bus, uses board.SCL and board.SDA
 sensor = adafruit_tsl2591.TSL2591(i2c) #initialize sensor
 looping = True
-global brightness
 brightness=1
 isMorning = True
 
 ## FUNCTIONS ##
 
 def cycle_colors():
+    global current_color
     if current_color <= 1:
         current_color += 1
     else:
@@ -38,6 +37,8 @@ def cycle_colors():
     set_color(colorseq[current_color])
 
 def cycle_brightness():
+    global current_color
+    global brightness
     if brightness < 1:
         brighter()
     else:
@@ -51,40 +52,53 @@ def play_sound(sound):
         print("play exit sound")
 
 def set_color(color):
+    global brightness
     value = tuple([x*brightness for x in color])
     pixels.fill(value)
     pixels.show()
 
 def night_dim():
+    global current_color
+    global brightness
     isMorning = False
     current_color = 2
     brightness=0.2
     set_color(colorseq[current_color])
 
 def night_bright():
+    global current_color
+    global brightness
     isMorning = False
     current_color = 2
     brightness=1
     set_color(colorseq[current_color])
         
 def morning_dim():
+    global current_color
+    global brightness
     isMorning = True
     current_color = 0
     brightness=0.2
     set_color(colorseq[current_color])
     
 def morning_bright():
+    global current_color
+    global brightness
     isMorning = True
     current_color = 0
     brightness=1
     set_color(colorseq[current_color])
 
 def brighter():
+    global current_color
+    global brightness
     if brightness < 1.0:
         brightness += 0.1
         set_color(colorseq[current_color])
 
 def dimmer():
+    global current_color
+    global brightness
     if brightness > 0.0:
         brightness -= 0.1
         set_color(colorseq[current_color])
@@ -100,7 +114,6 @@ def adapt_brightness():
     print('')
 
 def light_process():
-    brightness = 1
     while looping:
         time = datetime.now().strftime("%H:%M:%S")
         if "06:00:00" < time <= "17:00:00": #if during day

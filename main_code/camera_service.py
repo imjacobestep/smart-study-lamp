@@ -26,9 +26,11 @@ cap = cv2.VideoCapture(-1)
 
 ## FUNCTIONS ##
 def start_camera():
+    global cap
     cap = cv2.VideoCapture(-1)
 
 def stop_camera():
+    global cap
     cap.release()
 
 def track_movement(x, y):
@@ -93,6 +95,7 @@ def get_word(data, image):
 def speak_definition(word):
     definition = dictionary.meaning(word)
     output = ("This word is pronounced " + str(word) + ". Here is its definition " + str(definition))
+    print(output)
     pyttsx3.speak(output)
 
 ## MAIN PROCESS ##

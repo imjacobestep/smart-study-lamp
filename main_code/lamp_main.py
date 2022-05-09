@@ -11,9 +11,7 @@ import RPi.GPIO as GPIO
 ## VARIABLES ##
 lock = threading.Lock()
 
-global camera_switch
 camera_switch = True
-global auto_light_switch
 auto_light_switch = True
 light_switch = True
 
@@ -33,6 +31,7 @@ def check_pin(pin):
     return False
 
 def camera_change():
+    global camera_switch
     if check_pin("camera switch"):
         if camera_switch:
             camera_switch = True
@@ -44,6 +43,7 @@ def camera_change():
     print("no camera change")
 
 def auto_change():
+    global auto_light_switch
     if check_pin("auto switch"):
         if not auto_light_switch:
             auto_light_switch = True
@@ -75,15 +75,10 @@ def check_adjust():
     if check_pin("led brightness"):
         environment_service.cycle_brightness()
 
-def setup():
-    camera_switch = True
-    auto_light_switch = True
-
 ## MAIN LOOP ##
 
 while True:
-    setup()
-    camera_change
-    auto_change
+    camera_change()
+    auto_change()
     if not auto_light_switch:
-        check_adjust
+        check_adjust()
