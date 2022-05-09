@@ -28,14 +28,14 @@ def test_learning_env():
     camera_service.speak_definition("test")
 
     environment_service.play_sound(1)
-    environment_service.set_color(environment_service.current_color) #exit learning environment
+    environment_service.set_color(environment_service.colorseq[environment_service.current_color]) #exit learning environment
     utilities.wait(5)
 
 def test_adjustment():
     for i in range(10):
         #environment_service.cycle_brightness
         environment_service.brightness = i//10
-        environment_service.set_color(environment_service.current_color)
+        environment_service.set_color(environment_service.colorseq[environment_service.current_color])
         utilities.wait(1)
     for i in range(3):
         #environment_service.cycle_colors
