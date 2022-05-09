@@ -54,7 +54,7 @@ def test_auto():
     environment_service.stop_light()
 
 def test_tracking():
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(-1)
     with mp_hands.Hands(
         min_detection_confidence=0.5,
         min_tracking_confidence=0.5) as hands:
