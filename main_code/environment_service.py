@@ -99,7 +99,7 @@ def brighter():
 def dimmer():
     global current_color
     global brightness
-    if brightness > 0.0:
+    if brightness > 0.1:
         brightness -= 0.1
         set_color(colorseq[current_color])
 
