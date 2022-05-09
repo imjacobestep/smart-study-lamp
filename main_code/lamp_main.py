@@ -40,6 +40,7 @@ def camera_change():
         if camera_switch == True:
             camera_switch = False
             stop_camera()
+    print("no camera change")
 
 def auto_change():
     if check_pin("auto switch"):
