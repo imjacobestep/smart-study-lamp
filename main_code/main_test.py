@@ -40,8 +40,8 @@ def test_adjustment():
 
 def test_auto():
     environment_service.start_light()
-    if cv2.waitKey(5) & 0xFF == 27:
-        environment_service.stop_light()
+    utilities.wait(10)
+    environment_service.stop_light()
 
 def test_tracking():
     cap = cv2.VideoCapture(0)
@@ -88,10 +88,12 @@ def test_tracking():
 while True:
     userIn = input("what do you want to test? adj, env, cam, or auto: ")
     if userIn == "adj":
-        test_adjustment
+        test_adjustment()
     if userIn == "env":
-        test_learning_env
+        test_learning_env()
     if userIn == "cam":
-        test_tracking
+        test_tracking()
     if userIn == "auto":
-        test_auto
+        test_auto()
+    if userIn == "exit":
+        break

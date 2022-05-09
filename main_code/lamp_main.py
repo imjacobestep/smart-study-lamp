@@ -82,7 +82,7 @@ def setup():
 ## MAIN LOOP ##
 
 while True:
-    setup
+    setup()
     camera_change
     auto_change
     if not auto_light_switch:
