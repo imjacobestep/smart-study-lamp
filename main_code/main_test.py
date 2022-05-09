@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO
 import cv2
 from sympy import false, true
 import mediapipe as mp
-#import lamp_main
+import lamp_main
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -88,10 +88,10 @@ def test_tracking():
 while True:
     userIn = input("what do you want to test? adj, env, cam, or auto: ")
     if userIn == "adj":
-        test_adjustment()
+        test_adjustment
     if userIn == "env":
-        test_learning_env()
+        test_learning_env
     if userIn == "cam":
-        test_tracking()
+        test_tracking
     if userIn == "auto":
-        test_auto()
+        test_auto
