@@ -32,13 +32,13 @@ def check_pin(pin):
         return True
     return False
 
-def camera_change(cam):
+def camera_change():
     if check_pin("camera switch"):
-        if cam:
+        if camera_switch:
             camera_switch = True
             start_camera()
     else:
-        if cam:
+        if camera_switch:
             camera_switch = False
             stop_camera()
     print("no camera change")
@@ -59,8 +59,7 @@ def start_camera():
 
 def stop_camera():
     camera_service.stop_camera()
-    if camera.isAlive:
-        camera.join()
+    camera.join()
 
 def start_light():
     light_service.start_light()
@@ -68,8 +67,7 @@ def start_light():
 
 def stop_light():
     environment_service.stop_light()
-    if light.isAlive:
-        light.join()
+    light.join()
 
 def check_adjust():
     if check_pin("led color"):
@@ -84,8 +82,8 @@ def setup():
 ## MAIN LOOP ##
 
 while True:
-    setup()
-    camera_change(camera_switch)
-    auto_change()
+    setup
+    camera_change
+    auto_change
     if not auto_light_switch:
-        check_adjust()
+        check_adjust
