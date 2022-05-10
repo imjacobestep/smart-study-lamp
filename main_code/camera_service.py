@@ -23,7 +23,7 @@ mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
 x_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 y_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-cap = cv2.VideoCapture(1)
+#cap = cv2.VideoCapture(1)
 
 ## FUNCTIONS ##
 def start_camera():
@@ -71,7 +71,7 @@ def do_point(image, x,y):
 
 def process_image(image, x, y):
     left = x - 300
-    top = y - 150
+    top = y - 300
     right = x + 300
     bottom = y
 
@@ -89,7 +89,7 @@ def get_word(x, y, data, image):
     finger_x, finger_y = image.shape
     finger_x = finger_x/2
     total_boxes = len(data['text'])
-    margin = 5
+    margin = 20
     for sequence_number in range(total_boxes):
         if float(latest_page['conf'][sequence_number]) >30:
             (x, y, w, h) = (latest_page['left'][sequence_number], latest_page['top'][sequence_number], latest_page['width'][sequence_number],  latest_page['height'][sequence_number])
