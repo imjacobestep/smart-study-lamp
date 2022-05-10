@@ -36,10 +36,11 @@ def getWord(finger_x, finger_y):
 #p1 = load_image("photos with raspberry pi cam/test1.jpg")
 #p1 = load_image("photos with raspberry pi cam/img2_stand.jpg")
 
-in_path = 'smart-study-lamp/test_code/past_camera_test/photos/photos with raspberry pi cam/test1.jpg'
-out_path = 'smart-study-lamp/test_code/past_camera_test/photos/images_crop/2.jpg'
+in_path = 'test_code/past_camera_test/photos/photos with raspberry pi cam/test1.jpg'
+out_path = 'photos/images_crop/2.jpg'
 #output = crop_morphology.process_image(path=in_path, out_path=out_path)
-output1 = cv2.imread(filename=in_path)
+output1 = plt.imread(fname=in_path)
+#cv2.imshow(output1)
 
 output2 = cv2.cvtColor(output1, cv2.COLOR_BGR2GRAY)
 output3 = cv2.threshold(output2, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
