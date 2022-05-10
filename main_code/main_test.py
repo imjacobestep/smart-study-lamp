@@ -27,9 +27,9 @@ colors = [0, 1, 2]
 camera = PiCamera()
 rawCapture = PiRGBArray(camera)
 #camera.resolution (2592, 1944)
-camera.resolution = (640, 480)
+camera.resolution = (1080, 1080)
 camera.framerate = 32
-rawCapture = PiRGBArray(camera, size=(640, 480))
+rawCapture = PiRGBArray(camera, size=(1080, 1080))
 time.sleep(0.1)
 #camera.use_video_port = True
 stream = BytesIO()
@@ -141,7 +141,7 @@ def test_tracking2():
                             mp_drawing_styles.get_default_hand_landmarks_style(),
                             mp_drawing_styles.get_default_hand_connections_style())
                 # Flip the image horizontally for a selfie-view display.
-                cv2.imshow('MediaPipe Hands', cv2.flip(image, 1))
+                cv2.imshow('MediaPipe Hands', image)
                 rawCapture.truncate(0)
                 if cv2.waitKey(5) & 0xFF == 27:
                     break
