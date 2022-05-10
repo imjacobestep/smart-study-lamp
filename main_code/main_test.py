@@ -8,8 +8,11 @@ import cv2
 from sympy import false, true
 import mediapipe as mp
 from picamera import PiCamera
+from picamera.array import PiRGBArray
 from io import BytesIO
 from PIL import Image
+import time
+
 #import lamp_main
 
 mp_drawing = mp.solutions.drawing_utils
@@ -22,9 +25,13 @@ brightnesses = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 colors = [0, 1, 2]
 
 camera = PiCamera()
-camera.resolution (2592, 1944)
-camera.framerate = 15
-camera.use_video_port = True
+rawCapture = PiRGBArray(camera)
+#camera.resolution (2592, 1944)
+camera.resolution = (640, 480)
+camera.framerate = 32
+rawCapture = PiRGBArray(camera, size=(640, 480))
+time.sleep(0.1)
+#camera.use_video_port = True
 stream = BytesIO()
 
 GPIO.setmode(GPIO.BCM)
@@ -104,15 +111,15 @@ def test_tracking():
     cap.release()
 
 def test_tracking2():
-    camera.start_preview()
+    #camera.start_preview()
     with mp_hands.Hands(
         min_detection_confidence=0.5,
         min_tracking_confidence=0.5) as hands:
-            while True:
-                camera.capture(stream, format='jpeg')
-                stream.seek(0)
-                image = Image.open(stream)
-                image.flags.writeable = False
+            for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+                
+                image = frame.array
+
+                #image.flags.writeable = False
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                 results = hands.process(image)
 
@@ -135,9 +142,10 @@ def test_tracking2():
                             mp_drawing_styles.get_default_hand_connections_style())
                 # Flip the image horizontally for a selfie-view display.
                 #cv2.imshow('MediaPipe Hands', cv2.flip(image, 1))
+                rawCapture.truncate(0)
                 if cv2.waitKey(5) & 0xFF == 27:
                     break
-    camera.stop_preview()
+    #camera.stop_preview()
 
 while True:
     userIn = input("what do you want to test? adj, env, cam, or auto: ")
