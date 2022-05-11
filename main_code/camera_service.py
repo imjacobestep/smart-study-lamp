@@ -100,7 +100,8 @@ def get_word(x, y, data, image):
 
 def speak_definition(word):
     print(word)
-    definition = dictionary.meaning(word)
+    definition = ""
+    #definition = dictionary.meaning(word)
     output = ("This word is pronounced " + str(word) + ". Here is its definition " + str(definition))
     print(output)
     pyttsx3.speak(output)
