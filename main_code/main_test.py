@@ -27,7 +27,7 @@ colors = [0, 1, 2]
 camera = PiCamera()
 rawCapture = PiRGBArray(camera)
 #camera.resolution (2592, 1944)
-camera.resolution = (1080, 1080)
+camera.resolution = (1920, 1080)
 camera.framerate = 32
 rawCapture = PiRGBArray(camera, size=(1920, 1080))
 time.sleep(0.1)
