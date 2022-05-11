@@ -29,7 +29,7 @@ rawCapture = PiRGBArray(camera)
 #camera.resolution (2592, 1944)
 camera.resolution = (1080, 1080)
 camera.framerate = 32
-rawCapture = PiRGBArray(camera, size=(1080, 1080))
+rawCapture = PiRGBArray(camera, size=(1920, 1080))
 time.sleep(0.1)
 #camera.use_video_port = True
 stream = BytesIO()
