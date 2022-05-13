@@ -12,6 +12,7 @@ import mediapipe as mp
 import utilities
 import environment_service
 from PIL import Image as im
+import numpy as np
 from numpy import asarray
 
 ## VARIABLES ##
