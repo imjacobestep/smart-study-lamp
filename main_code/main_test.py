@@ -142,7 +142,7 @@ def test_tracking2():
                             mp_drawing_styles.get_default_hand_connections_style())
                 # Flip the image horizontally for a selfie-view display.
                 #cv2.imshow('MediaPipe Hands', image)
-                cv2.imshow('MediaPipe Hands', camera_service.draw_rectangle(image=image))
+                cv2.imshow('MediaPipe Hands', camera_service.draw_rectangle(image=image, x=x, y=y))
                 rawCapture.truncate(0)
                 if cv2.waitKey(5) & 0xFF == 27:
                     break
