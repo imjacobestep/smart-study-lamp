@@ -156,30 +156,31 @@ def test_tracking3():
         min_detection_confidence=0.5,
         min_tracking_confidence=0.5) as hands:
             while True:
-                    camera.capture(frame, "rgb")
-                    
-                    image = cv2.cvtColor(frame.array, cv2.COLOR_BGR2RGB)
-                    results = hands.process(image)
+                frame = None
+                camera.capture(frame, "rgb")
+                
+                image = cv2.cvtColor(frame.array, cv2.COLOR_BGR2RGB)
+                results = hands.process(image)
 
-                    # Draw the hand annotations on the image.
-                    image.flags.writeable = True
-                    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-                    image_height, image_width, _ = image.shape
-                    if results.multi_hand_landmarks:
-                        for hand_landmarks in results.multi_hand_landmarks:
-                            x = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x * image_width
-                            y = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y * image_height
-                            print("Index fingertip at: " + str(x) + ", " + str(y))
-                            #track_movement(x, y)
-                            camera_service.track_movement(image, x,y)
-                            mp_drawing.draw_landmarks(
-                                image,
-                                hand_landmarks,
-                                mp_hands.HAND_CONNECTIONS,
-                                mp_drawing_styles.get_default_hand_landmarks_style(),
-                                mp_drawing_styles.get_default_hand_connections_style())
-                    cv2.imshow('MediaPipe Hands', cv2.resize(camera_service.draw_rectangle(image=image, x=x, y=y), (852,480)))
-                    frame.truncate(0)
+                # Draw the hand annotations on the image.
+                image.flags.writeable = True
+                image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+                image_height, image_width, _ = image.shape
+                if results.multi_hand_landmarks:
+                    for hand_landmarks in results.multi_hand_landmarks:
+                        x = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x * image_width
+                        y = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y * image_height
+                        print("Index fingertip at: " + str(x) + ", " + str(y))
+                        #track_movement(x, y)
+                        camera_service.track_movement(image, x,y)
+                        mp_drawing.draw_landmarks(
+                            image,
+                            hand_landmarks,
+                            mp_hands.HAND_CONNECTIONS,
+                            mp_drawing_styles.get_default_hand_landmarks_style(),
+                            mp_drawing_styles.get_default_hand_connections_style())
+                cv2.imshow('MediaPipe Hands', cv2.resize(camera_service.draw_rectangle(image=image, x=x, y=y), (852,480)))
+                frame.truncate(0)
                 if cv2.waitKey(5) & 0xFF == 27:
                     break
 
