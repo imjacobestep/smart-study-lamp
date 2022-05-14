@@ -191,7 +191,7 @@ while True:
     if userIn == "env":
         test_learning_env()
     if userIn == "cam":
-        test_tracking3()
+        test_tracking2()
     if userIn == "auto":
         test_auto()
     if userIn == "exit":
