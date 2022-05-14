@@ -28,7 +28,7 @@ camera = PiCamera()
 rawCapture = PiRGBArray(camera)
 #camera.resolution (2592, 1944)
 camera.resolution = (1920, 1080)
-camera.framerate = 32
+camera.framerate = 30
 rawCapture = PiRGBArray(camera, size=(1920, 1080))
 time.sleep(0.1)
 #camera.use_video_port = True
@@ -111,6 +111,8 @@ def test_tracking():
     cap.release()
 
 def test_tracking2():
+    x = 0
+    y = 0
     #camera.start_preview()
     with mp_hands.Hands(
         min_detection_confidence=0.5,
@@ -142,17 +144,18 @@ def test_tracking2():
                             mp_drawing_styles.get_default_hand_connections_style())
                 # Flip the image horizontally for a selfie-view display.
                 #cv2.imshow('MediaPipe Hands', image)
-                cv2.imshow('MediaPipe Hands', camera_service.draw_rectangle(image=image, x=x, y=y))
+                cv2.imshow('MediaPipe Hands', cv2.resize(camera_service.draw_rectangle(image=image, x=x, y=y), (852,480)))
                 rawCapture.truncate(0)
                 if cv2.waitKey(5) & 0xFF == 27:
                     break
 
 def test_tracking3():
+    x = 0
+    y = 0
     with mp_hands.Hands(
         min_detection_confidence=0.5,
         min_tracking_confidence=0.5) as hands:
             while True:
-                with rawCapture(camera) as frame:
                     camera.capture(frame, "rgb")
                     
                     image = cv2.cvtColor(frame.array, cv2.COLOR_BGR2RGB)
@@ -175,7 +178,7 @@ def test_tracking3():
                                 mp_hands.HAND_CONNECTIONS,
                                 mp_drawing_styles.get_default_hand_landmarks_style(),
                                 mp_drawing_styles.get_default_hand_connections_style())
-                    cv2.imshow('MediaPipe Hands', camera_service.draw_rectangle(image=image))
+                    cv2.imshow('MediaPipe Hands', cv2.resize(camera_service.draw_rectangle(image=image, x=x, y=y), (852,480)))
                     frame.truncate(0)
                 if cv2.waitKey(5) & 0xFF == 27:
                     break
@@ -187,7 +190,7 @@ while True:
     if userIn == "env":
         test_learning_env()
     if userIn == "cam":
-        test_tracking2()
+        test_tracking3()
     if userIn == "auto":
         test_auto()
     if userIn == "exit":

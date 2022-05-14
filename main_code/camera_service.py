@@ -84,13 +84,15 @@ def process_image(image, x, y):
     return img_threshold
 
 def  draw_rectangle(x, y, image):
+    x = int(x)
+    y = int(y)
     x1 = x-300
     x2 = x+300
     y1 = y-300
     y2 = y
     triangle = [(x-10,y-10), (x, y), (x+10,y-10)]
     rect_image = cv2.rectangle(img= image, pt1=(x1, y1), pt2=(x2, y2), color=(0, 255, 0))
-    poly_image = cv2.polylines(img=rect_image, pts=np.array([triangle]), color=(255, 0, 0))
+    poly_image = cv2.polylines(img=rect_image, pts=np.array([triangle]), color=(255, 0, 0), isClosed=True)
     return poly_image
 
 def get_word(x, y, data, image):
