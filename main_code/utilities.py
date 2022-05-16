@@ -3,6 +3,7 @@ from io import BytesIO
 from skimage import io
 from matplotlib import pyplot as plt
 import time
+import pyttsx3
 
 ## VARIABLES ##
 pin_table = {
@@ -28,6 +29,15 @@ def load_image(filepath):
 def show_image(image):
     plt.imshow(image)
     plt.show()
+
+def speak(text):
+    pyttsx3.speak(text)
+
+def get_definition(word):
+    definition = ""
+    #definition = dictionary.meaning(word)
+    output_text = ("This word is pronounced: " + str(word) + ". Here is its definition: " + str(definition))
+    return output_text
 
 def wait(seconds):
     start = time.time()

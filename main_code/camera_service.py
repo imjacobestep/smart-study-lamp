@@ -4,10 +4,6 @@ import pytesseract
 from io import BytesIO
 from matplotlib import pyplot as plt
 import cv2
-from PyDictionary import PyDictionary
-import pyttsx3
-from sympy import false, true
-#import mediapipe as mp
 import mediapipe as mp
 import utilities
 import environment_service
@@ -17,14 +13,11 @@ from numpy import asarray
 
 ## VARIABLES ##
 #pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-latest_page = None
-dictionary = PyDictionary
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
 x_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 y_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-#cap = cv2.VideoCapture(1)
 
 ## FUNCTIONS ##
 def start_camera():
@@ -50,76 +43,66 @@ def track_movement(image, x, y):
         point = False
 
     if(point):
-        do_point(image, x,y)
+        execute_point(image, x,y)
         print("point")
     
     return None
 
-def do_point(image, x,y):
+def execute_point(image, x,y):
     environment_service.play_sound(0)
     environment_service.set_color(utilities.colors_table["special"]) #create learning environment
 
     #success, image = cap.read()
-    processed = process_image(image, x, y)
-    data = pytesseract.image_to_data(processed, output_type=pytesseract.Output.DICT)
-    word = get_word(x,y, data, processed)
-    speak_definition(word)
+    processed_image = process_image(image, x, y)
+    ocr_results = get_ocr(processed_image=processed_image)
+    word_results = get_word(ocr_results)
+    if word_results[0]:
+        output_text = utilities.get_definition(word_results[1])
+        utilities.speak(output_text)
     utilities.wait(1)
 
     environment_service.play_sound(1)
     environment_service.set_color(environment_service.colorseq[environment_service.current_color]) #exit learning environment
     utilities.wait(2)
 
+def get_ocr(processed_image):
+    ocr_results = pytesseract.image_to_data(processed_image, output_type=pytesseract.Output.DICT)
+    return ocr_results
+
 def process_image(image, x, y):
-    left = x - 300
-    top = y - 300
-    right = x + 300
+    left = x - 150
+    top = y - 115
+    right = x + 150
     bottom = y
-
-    img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    img_threshold = cv2.threshold(img_gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-    imdata = im.fromarray(img_threshold)
+    imdata = im.fromarray(image)
     cropped = imdata.crop((left, top, right, bottom))
-    ret = asarray(cropped)
-    return img_threshold
+    return cropped
 
-def  draw_rectangle(x, y, image):
+def draw_rectangle(x, y, image):
     imgName = "photo_x" + str(x) + "_y" + str(y) + ".jpg"
     cv2.imwrite(filename=imgName,img = image)
     x = int(x)
     y = int(y)
     x1 = x-75
     x2 = x+75
-    y1 = y-150
-    y2 = y
+    y1 = y
+    y2 = y-115
     triangle = [(x-10,y-30), (x, y-20), (x+10,y-30)]
     rect_image = cv2.rectangle(img= image, pt1=(x1, y1), pt2=(x2, y2), color=(0, 255, 0))
     poly_image = cv2.polylines(img=rect_image, pts=np.array([triangle]), color=(255, 0, 0), isClosed=True)
     return poly_image
 
-def get_word(x, y, data, image):
-    #print('width: ', im.shape[1])
-    #print('height:', im.shape[0])
-    latest_page = data
-    finger_x, finger_y = image.shape
-    finger_x = finger_x/2
-    total_boxes = len(data['text'])
-    margin = 20
-    for sequence_number in range(total_boxes):
-        if float(latest_page['conf'][sequence_number]) >30:
-            (x, y, w, h) = (latest_page['left'][sequence_number], latest_page['top'][sequence_number], latest_page['width'][sequence_number],  latest_page['height'][sequence_number])
-            x2, y2 = x+w, y-h
-            if( (x < finger_x < x2) and ((y-margin) < finger_y < y2) ):
-                return latest_page['text'][sequence_number]
-    return "rabbit"
-
-def speak_definition(word):
-    print(word)
-    definition = ""
-    #definition = dictionary.meaning(word)
-    output = ("This word is pronounced " + str(word) + ". Here is its definition " + str(definition))
-    print(output)
-    pyttsx3.speak(output)
+def get_word(ocr_results):
+  fx = 150
+  fy = 115 - 20
+  for i in range(len(ocr_results['text'])):
+    xTest = (fx > ocr_results['left'][i]) and ((fx-ocr_results['left'][i]) < ocr_results['width'][i])
+    yTest = (fy > ocr_results['top'][i]) and ((fy-ocr_results['top'][i]) < ocr_results['height'][i])
+    if(xTest and yTest and float(ocr_results["conf"][i]) > 0):
+      #data = [i, ocr_results['text'][i], ocr_results['left'][i], ocr_results['top'][i], ocr_results['width'][i], ocr_results['height'][i]]
+      found_word = ocr_results['text'][i]
+      return(True, found_word)
+  return (False, '----fail----')
 
 ## MAIN PROCESS ##
 def camera_process():
