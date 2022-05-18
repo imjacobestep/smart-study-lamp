@@ -21,6 +21,11 @@ colors_table = {
     "special": [0, 255, 40],
 }
 
+crop_dimensions = {
+    "width": 400,
+    "height": 115
+}
+
 ## FUNCTIONS ##
 def load_image(filepath):
     img = io.imread(filepath)

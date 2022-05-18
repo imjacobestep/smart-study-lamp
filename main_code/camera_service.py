@@ -16,8 +16,8 @@ from numpy import asarray
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
-x_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-y_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+x_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+y_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 ## FUNCTIONS ##
 def start_camera():
@@ -70,9 +70,9 @@ def get_ocr(processed_image):
     return ocr_results
 
 def process_image(image, x, y):
-    left = x - 150
-    top = y - 115
-    right = x + 150
+    left = x - (utilities.crop_dimensions['width']/2)
+    top = y - utilities.crop_dimensions['height']
+    right = x + (utilities.crop_dimensions['width']/2)
     bottom = y
     imdata = im.fromarray(image)
     cropped = imdata.crop((left, top, right, bottom))
@@ -83,18 +83,18 @@ def draw_rectangle(x, y, image):
     #cv2.imwrite(filename=imgName,img = image)
     x = int(x)
     y = int(y)
-    x1 = x-75
-    x2 = x+75
+    x1 = x - (utilities.crop_dimensions['width']/2)
+    x2 = x + (utilities.crop_dimensions['width']/2)
     y1 = y
-    y2 = y-115
+    y2 = y - utilities.crop_dimensions['height']
     triangle = [(x-10,y-30), (x, y-20), (x+10,y-30)]
     rect_image = cv2.rectangle(img= image, pt1=(x1, y1), pt2=(x2, y2), color=(0, 255, 0))
     poly_image = cv2.polylines(img=rect_image, pts=np.array([triangle]), color=(255, 0, 0), isClosed=True)
     return poly_image
 
 def get_word(ocr_results):
-  fx = 150
-  fy = 115 - 20
+  fx = utilities.crop_dimensions['width']/2
+  fy = utilities.crop_dimensions['height'] - 20
   for i in range(len(ocr_results['text'])):
     xTest = (fx > ocr_results['left'][i]) and ((fx-ocr_results['left'][i]) < ocr_results['width'][i])
     yTest = (fy > ocr_results['top'][i]) and ((fy-ocr_results['top'][i]) < ocr_results['height'][i])
