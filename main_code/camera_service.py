@@ -80,7 +80,7 @@ def process_image(image, x, y):
 
 def draw_rectangle(x, y, image):
     imgName = "photo_x" + str(x) + "_y" + str(y) + ".jpg"
-    cv2.imwrite(filename=imgName,img = image)
+    #cv2.imwrite(filename=imgName,img = image)
     x = int(x)
     y = int(y)
     x1 = x-75

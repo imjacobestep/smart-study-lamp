@@ -36,6 +36,7 @@ def speak(text):
 def get_definition(word):
     definition = ""
     #definition = dictionary.meaning(word)
+    print("word detected: " + word)
     output_text = ("This word is pronounced: " + str(word) + ". Here is its definition: " + str(definition))
     return output_text
 
