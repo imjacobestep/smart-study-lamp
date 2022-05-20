@@ -9,7 +9,7 @@ import RPi.GPIO as GPIO
 lock = threading.Lock()
 
 camera_switch = True
-cam = camera_service.Camera_service()
+cam = camera_service.Camera_service().camera_loop
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(utilities.pin_table["auto switch"], GPIO.IN, pull_up_down=GPIO.PUD_UP) #auto switch
@@ -17,7 +17,7 @@ GPIO.setup(utilities.pin_table["led brightness"], GPIO.IN, pull_up_down=GPIO.PUD
 GPIO.setup(utilities.pin_table["led color"], GPIO.IN, pull_up_down=GPIO.PUD_UP) #LED color button
 GPIO.setup(utilities.pin_table["camera switch"], GPIO.IN, pull_up_down=GPIO.PUD_UP) #camera switch
 
-camera = threading.Thread(target=cam.camera_loop, args=(lock, ))
+camera = threading.Thread(target=cam, args=(lock, ))
 
 ## FUNCTIONS ##
 def check_pin(pin):
