@@ -16,7 +16,7 @@ from io import BytesIO
 import time
 import lamp_main
 
-class camera_service:
+class Camera_service:
     ## VARIABLES ##
     #pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
     mp_drawing = mp.solutions.drawing_utils
