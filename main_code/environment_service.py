@@ -20,8 +20,8 @@ sensor = adafruit_tsl2591.TSL2591(i2c) #initialize sensor
 adafruit_tsl2591.GAIN_LOW
 
 #rgb
-current_color = 1
-current_brightness = utilities.colors_table["neutral"]
+current_color = utilities.colors_table["neutral"]
+current_brightness = 1.0
 
 #main
 GPIO.setup(utilities.pin_table["cool led data"], GPIO.OUT)
@@ -51,7 +51,7 @@ def rgb_toggle(switch):
 
 def rgb_update(brightness, color):
     global current_brightness, current_color
-    value = tuple([int(x*brightness) for x in color])
+    value = tuple([x*brightness for x in color])
     rgb_led.fill(value)
     rgb_led.show()
     current_brightness, current_color = brightness, color
