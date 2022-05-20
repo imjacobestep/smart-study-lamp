@@ -1,6 +1,6 @@
 ## IMPORTS ##
 import environment_service
-import camera_service as cam
+import camera_service
 import utilities
 import threading
 import RPi.GPIO as GPIO
@@ -9,6 +9,7 @@ import RPi.GPIO as GPIO
 lock = threading.Lock()
 
 camera_switch = True
+cam = camera_service
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(utilities.pin_table["auto switch"], GPIO.IN, pull_up_down=GPIO.PUD_UP) #auto switch
