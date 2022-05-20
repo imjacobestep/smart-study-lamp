@@ -121,7 +121,7 @@ def get_word(ocr_results):
   return (False, '----fail----')
 
 ## MAIN PROCESS ##
-def camera_process(lock):
+def camera_loop(lock):
     x = 0
     y = 0
     #camera.start_preview()
