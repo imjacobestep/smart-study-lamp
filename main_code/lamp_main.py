@@ -1,6 +1,6 @@
 ## IMPORTS ##
 import environment_service
-import camera_service
+import camera_service as cam
 import utilities
 import threading
 import RPi.GPIO as GPIO
@@ -16,7 +16,7 @@ GPIO.setup(utilities.pin_table["led brightness"], GPIO.IN, pull_up_down=GPIO.PUD
 GPIO.setup(utilities.pin_table["led color"], GPIO.IN, pull_up_down=GPIO.PUD_UP) #LED color button
 GPIO.setup(utilities.pin_table["camera switch"], GPIO.IN, pull_up_down=GPIO.PUD_UP) #camera switch
 
-camera = threading.Thread(target=camera_service.camera_loop, args=(lock, ))
+camera = threading.Thread(target=cam.camera_loop, args=(lock, ))
 
 ## FUNCTIONS ##
 def check_pin(pin):
