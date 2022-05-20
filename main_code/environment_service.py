@@ -24,9 +24,9 @@ target_lux=70
 optimal_brightness = 110
 
 #rgb
-colorseq=[utilities.colors_table["cool"],utilities.colors_table["neutral"],utilities.colors_table["warm"]]
+#colorseq=[utilities.colors_table["cool"],utilities.colors_table["neutral"],utilities.colors_table["warm"]]
 current_color = 1
-current_brightness = 1
+current_brightness = utilities.colors_table["neutral"]
 
 #main
 GPIO.setup(utilities.pin_table["cool led data"], GPIO.OUT)
