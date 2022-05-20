@@ -110,16 +110,16 @@ class camera_service:
         return poly_image
 
     def get_word(ocr_results):
-    fx = utilities.crop_dimensions['width']/2
-    fy = utilities.crop_dimensions['height'] - 20
-    for i in range(len(ocr_results['text'])):
-        xTest = (fx > ocr_results['left'][i]) and ((fx-ocr_results['left'][i]) < ocr_results['width'][i])
-        yTest = (fy > ocr_results['top'][i]) and ((fy-ocr_results['top'][i]) < ocr_results['height'][i])
-        if(xTest and yTest and float(ocr_results["conf"][i]) > 0):
-        #data = [i, ocr_results['text'][i], ocr_results['left'][i], ocr_results['top'][i], ocr_results['width'][i], ocr_results['height'][i]]
-        found_word = ocr_results['text'][i]
-        return(True, found_word)
-    return (False, '----fail----')
+        fx = utilities.crop_dimensions['width']/2
+        fy = utilities.crop_dimensions['height'] - 20
+        for i in range(len(ocr_results['text'])):
+            xTest = (fx > ocr_results['left'][i]) and ((fx-ocr_results['left'][i]) < ocr_results['width'][i])
+            yTest = (fy > ocr_results['top'][i]) and ((fy-ocr_results['top'][i]) < ocr_results['height'][i])
+            if(xTest and yTest and float(ocr_results["conf"][i]) > 0):
+            #data = [i, ocr_results['text'][i], ocr_results['left'][i], ocr_results['top'][i], ocr_results['width'][i], ocr_results['height'][i]]
+                found_word = ocr_results['text'][i]
+                return(True, found_word)
+        return (False, '----fail----')
 
     ## MAIN PROCESS ##
     def camera_loop(lock):
