@@ -19,12 +19,7 @@ i2c = board.I2C() #sensor object, uses board's I2C bus, uses board.SCL and board
 sensor = adafruit_tsl2591.TSL2591(i2c) #initialize sensor
 adafruit_tsl2591.GAIN_LOW
 
-#both lights
-target_lux=70
-optimal_brightness = 110
-
 #rgb
-#colorseq=[utilities.colors_table["cool"],utilities.colors_table["neutral"],utilities.colors_table["warm"]]
 current_color = 1
 current_brightness = utilities.colors_table["neutral"]
 
@@ -56,7 +51,7 @@ def rgb_toggle(switch):
 
 def rgb_update(brightness, color):
     global current_brightness, current_color
-    value = tuple([x*brightness for x in color])
+    value = tuple([int(x*brightness) for x in color])
     rgb_led.fill(value)
     rgb_led.show()
     current_brightness, current_color = brightness, color
