@@ -38,7 +38,7 @@ def test_learning_env():
     environment_service.play_sound(0)
     environment_service.special_color(True) #create learning environment
 
-    utilities.speak(utilities.get_definition("test"))
+    camera_service.speak_definition("test")
     utilities.wait(1)
 
     environment_service.play_sound(1)
@@ -61,6 +61,7 @@ def test_auto():
         environment_service.auto_adjust
 
 def test_tracking():
+    global x, y
     x = 0
     y = 0
     #camera.start_preview()

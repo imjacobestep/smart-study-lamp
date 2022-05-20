@@ -79,8 +79,8 @@ def draw_rectangle(x, y, image):
     #cv2.imwrite(filename=imgName,img = image)
     x = int(x)
     y = int(y)
-    x1 = x - (utilities.crop_dimensions['width']/2)
-    x2 = x + (utilities.crop_dimensions['width']/2)
+    x1 = int(x - (utilities.crop_dimensions['width']/2))
+    x2 = int(x + (utilities.crop_dimensions['width']/2))
     y1 = y
     y2 = y - utilities.crop_dimensions['height']
     triangle = [(x-10,y-30), (x, y-20), (x+10,y-30)]
