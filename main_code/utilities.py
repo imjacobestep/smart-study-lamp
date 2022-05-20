@@ -28,6 +28,9 @@ crop_dimensions = {
     "height": 115
 }
 
+target_brightness = 60
+movement_margin = 6
+
 ## FUNCTIONS ##
 def load_image(filepath):
     img = io.imread(filepath)
