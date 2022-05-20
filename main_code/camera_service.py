@@ -18,17 +18,6 @@ import time
 
 
 ## VARIABLES ##
-#pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-'''mp_drawing = mp.solutions.drawing_utils
-mp_drawing_styles = mp.solutions.drawing_styles
-mp_hands = mp.solutions.hands
-camera = PiCamera()
-rawCapture = PiRGBArray(camera)
-camera.resolution = (1920, 1080)
-camera.framerate = 30
-rawCapture = PiRGBArray(camera, size=(1920, 1080))
-time.sleep(0.1)'''
-#camera.use_video_port = True
 stream = BytesIO()
 last_x, last_y, last_moved = 0,0,time.time()
 #x_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -60,8 +49,6 @@ def track_movement(image, x, y):
 def execute_point(image, x,y):
     environment_service.play_sound(0)
     environment_service.special_color(True) #create learning environment
-
-    #success, image = cap.read()
     processed_image = process_image(image, x, y)
     ocr_results = get_ocr(processed_image=processed_image)
     word_results = get_word(ocr_results)
