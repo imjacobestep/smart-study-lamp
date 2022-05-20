@@ -19,7 +19,7 @@ import time
 
 ## VARIABLES ##
 #pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-mp_drawing = mp.solutions.drawing_utils
+'''mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
 camera = PiCamera()
@@ -27,15 +27,15 @@ rawCapture = PiRGBArray(camera)
 camera.resolution = (1920, 1080)
 camera.framerate = 30
 rawCapture = PiRGBArray(camera, size=(1920, 1080))
-time.sleep(0.1)
+time.sleep(0.1)'''
 #camera.use_video_port = True
 stream = BytesIO()
 last_x, last_y, last_moved = 0,0,time.time()
-x_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-y_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+#x_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+#y_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 ## FUNCTIONS ##
-def track_movement_old(image, x, y):
+'''def track_movement_old(image, x, y):
     if(len(x_pos) > 0):
         x_pos.pop(0)
         y_pos.pop(0)
@@ -49,7 +49,7 @@ def track_movement_old(image, x, y):
         point = False
     if(point):
         execute_point(image, x,y)
-        print("point")
+        print("point")'''
 
 def track_movement(image, x, y):
     global last_x, last_y, last_moved
