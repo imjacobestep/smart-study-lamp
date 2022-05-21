@@ -15,8 +15,8 @@ from rpi_hardware_pwm import HardwarePWM as hpwm
 # PINcool=18
 # PINwarm=19
 PINMode=5
-PINBrightness=23
-PINColor=24
+PINBrightness= 27
+PINColor= 6
 
 
 GPIO.setmode(GPIO.BCM)
