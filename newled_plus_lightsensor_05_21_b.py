@@ -12,8 +12,8 @@ import numpy as np
 from rpi_hardware_pwm import HardwarePWM as hpwm
 
 
-PINcool=12
-PINwarm=13
+# PINcool=18
+# PINwarm=19
 PINMode=5
 PINBrightness=23
 PINColor=24
@@ -24,8 +24,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(PINMode, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(PINBrightness, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(PINColor, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(PINcool, GPIO.OUT)
-GPIO.setup(PINwarm, GPIO.OUT)
+
 
 
 btnBrightness=Button(PINBrightness)
