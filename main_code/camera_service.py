@@ -42,13 +42,13 @@ last_x, last_y, last_moved = 0,0,time.time()
 
 def track_movement(image, x, y):
     global last_x, last_y, last_moved
-    if (abs(last_x - x) <= utilities.movement_margin) and (abs(last_y - y) <= utilities.movement_margin) and (time.time()-last_moved < 0.1):
-        execute_point(image, x, y)
+    if (abs(last_x - x) <= utilities.movement_margin) and (abs(last_y - y) <= utilities.movement_margin) and (time.time()-last_moved < 1):
         last_x, last_y = x, y
+        execute_point(image, x, y)
         return
     last_moved = time.time()
     last_x, last_y = x, y
-    #print("last moved: " + last_moved)
+    print("last moved: " + str(last_moved))
     return
 
 def execute_point(image, x,y):
