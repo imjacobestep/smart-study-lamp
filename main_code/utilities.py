@@ -7,8 +7,8 @@ import pyttsx3
 
 ## VARIABLES ##
 pin_table = {
-  "led brightness": 23,
-  "led color": 24,
+  "led brightness": 27,
+  "led color": 6,
   "auto switch": 5,
   "cool led data": 12,
   "warm led data": 13,

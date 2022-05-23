@@ -6,6 +6,7 @@ import neopixel
 import RPi.GPIO as GPIO
 from datetime import datetime
 import utilities
+from rpi_hardware_pwm import HardwarePWM as hpwm
 
 ## VARIABLES ##
 #setup
@@ -17,7 +18,7 @@ rgb_led = neopixel.NeoPixel(
 )
 i2c = board.I2C() #sensor object, uses board's I2C bus, uses board.SCL and board.SDA
 sensor = adafruit_tsl2591.TSL2591(i2c) #initialize sensor
-adafruit_tsl2591.GAIN_LOW
+adafruit_tsl2591.GAIN_HIGH
 
 #rgb
 current_color = utilities.colors_table["neutral"]
@@ -26,10 +27,10 @@ current_brightness = 1.0
 #main
 GPIO.setup(utilities.pin_table["cool led data"], GPIO.OUT)
 GPIO.setup(utilities.pin_table["warm led data"], GPIO.OUT)
-soft_pwm_cool = GPIO.PWM(utilities.pin_table["cool led data"], 20000)
-soft_pwm_warm = GPIO.PWM(utilities.pin_table["warm led data"], 20000)
-soft_pwm_cool.start(0)
-soft_pwm_warm.start(0)
+pwm_cool = hpwm(pwm_channel=0,hz=20000)
+pwm_warm = hpwm(pwm_channel=1,hz=20000)
+pwm_cool.start(0)
+pwm_warm.start(0)
 
 #other
 looping = True
@@ -67,14 +68,14 @@ def main_toggle(switch):
 def main_update(brightness, color):
     global current_brightness, current_color
     if color == utilities.colors_table["cool"]:
-        soft_pwm_cool.ChangeDutyCycle(brightness*100)
-        soft_pwm_warm.ChangeDutyCycle(0)
+        pwm_cool.ChangeDutyCycle(brightness*100)
+        pwm_warm.ChangeDutyCycle(0)
     if color == utilities.colors_table["warm"]:
-        soft_pwm_cool.ChangeDutyCycle(0)
-        soft_pwm_warm.ChangeDutyCycle(brightness*100)
+        pwm_cool.ChangeDutyCycle(0)
+        pwm_warm.ChangeDutyCycle(brightness*100)
     else:
-        soft_pwm_cool.ChangeDutyCycle(brightness*50)
-        soft_pwm_warm.ChangeDutyCycle(brightness*50)
+        pwm_cool.ChangeDutyCycle(brightness*50)
+        pwm_warm.ChangeDutyCycle(brightness*50)
     current_brightness, current_color = brightness, color
 
 ## Central Controls ##
