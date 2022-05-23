@@ -48,7 +48,7 @@ def track_movement(image, x, y):
         return
     last_moved = time.time()
     last_x, last_y = x, y
-    print("last moved: " + str(last_moved))
+    #print("last moved: " + str(last_moved))
     return
 
 def execute_point(image, x,y):
@@ -77,6 +77,7 @@ def process_image(image, x, y):
     bottom = y
     imdata = im.fromarray(image)
     cropped = imdata.crop((left, top, right, bottom))
+    cv2.imwrite(filename="cropped_image",img = image)
     return cropped
 
 def draw_rectangle(x, y, image):
