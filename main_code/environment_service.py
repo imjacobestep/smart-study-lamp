@@ -68,14 +68,14 @@ def main_toggle(switch):
 def main_update(brightness, color):
     global current_brightness, current_color
     if color == utilities.colors_table["cool"]:
-        pwm_cool.ChangeDutyCycle(brightness*100)
-        pwm_warm.ChangeDutyCycle(0)
+        pwm_cool.change_duty_cycle(brightness*100)
+        pwm_warm.change_duty_cycle(0)
     if color == utilities.colors_table["warm"]:
-        pwm_cool.ChangeDutyCycle(0)
-        pwm_warm.ChangeDutyCycle(brightness*100)
+        pwm_cool.change_duty_cycle(0)
+        pwm_warm.change_duty_cycle(brightness*100)
     else:
-        pwm_cool.ChangeDutyCycle(brightness*50)
-        pwm_warm.ChangeDutyCycle(brightness*50)
+        pwm_cool.change_duty_cycle(brightness*50)
+        pwm_warm.change_duty_cycle(brightness*50)
     current_brightness, current_color = brightness, color
 
 ## Central Controls ##
