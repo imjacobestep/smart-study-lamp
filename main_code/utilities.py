@@ -25,7 +25,7 @@ colors_table = {
 
 crop_dimensions = {
     "width": 300,
-    "height": 80
+    "height": 115
 }
 
 target_brightness = 60
