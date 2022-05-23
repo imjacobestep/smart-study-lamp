@@ -46,7 +46,7 @@ def track_movement(image, x, y):
         execute_point(image, x, y)
         return
     last_moved = time.time()
-    print("last moved")
+    print("last moved: " + last_moved)
     return
 
 def execute_point(image, x,y):
