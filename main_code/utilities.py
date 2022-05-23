@@ -29,7 +29,7 @@ crop_dimensions = {
 }
 
 target_brightness = 60
-movement_margin = 6
+movement_margin = 10
 
 ## FUNCTIONS ##
 def load_image(filepath):
