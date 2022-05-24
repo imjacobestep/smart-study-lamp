@@ -1,0 +1,59 @@
+## SETUP ##
+
+#word table
+CREATE TABLE words
+(
+	word_id	INT	IDENTITY(1,1)	PRIMARY KEY,
+	word	VARCHAR(255),
+	learned	BIT NOT NULL	DEFAULT(0)
+);
+
+#environment table
+CREATE TABLE environment
+(
+	reading_id	INT	IDENTITY(1,1)	PRIMARY KEY,
+	lux	INT	DEFAULT(0),
+	meets_target	BIT	NOT NULL	DEFAULT(0)
+);
+
+
+## INSERTS / UPDATES ##
+
+#insert word
+INSERT INTO word (word_id, word, learned)
+VALUES(wordID, word, 0);
+
+#update word
+UPDATE word
+SET learned = 1
+WHERE word_id = wordID;
+
+#add reading
+INSERT INTO environment (reading_id, lux, meets_target)
+VALUES(readingID, lux, meetsTarget);
+
+
+## QUERIES ##
+
+#get word
+SELECT *
+FROM word
+WHERE word_id = wordID;
+
+#get all unlearned words
+SELECT *
+FROM word
+WHERE learned = 0;
+
+#get all learned words
+SELECT *
+FROM word
+WHERE learned = 1;
+
+#get all words
+SELECT *
+FROM word;
+
+#get all readings
+SELECT *
+FROM environment;
