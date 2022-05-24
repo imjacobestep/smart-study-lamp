@@ -77,8 +77,10 @@ def process_image(image, x, y):
     bottom = y
     imdata = im.fromarray(image)
     cropped = imdata.crop((left, top, right, bottom))
-    cv2.imwrite(filename="cropped_image.jpg",img = np.array(cropped))
-    return cropped
+    img_gray = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
+    img_threshold = cv2.threshold(img_gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+    cv2.imwrite(filename="cropped_image.jpg",img = np.array(img_threshold))
+    return img_threshold
 
 def draw_rectangle(x, y, image):
     imgName = "photo_x" + str(x) + "_y" + str(y) + ".jpg"
