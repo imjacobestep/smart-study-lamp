@@ -24,3 +24,5 @@ sudo pip3 install --upgrade adafruit-python-shell
 sudo pip3 install adafruit-blinka
 sudo pip3 install adafruit-circuitpython-neopixel
 sudo pip3 install adafruit-circuitpython-tsl2591
+echo "$(tput setaf 1) $(tput setab 7)--------DATABASE PACKAGES--------"
+sudo pip3 install pymssql

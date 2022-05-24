@@ -42,6 +42,9 @@ def play_sound(sound):
     else:
         print("play exit sound")
 
+def get_lux():
+    return sensor.visible/1e6 #sensor.lux
+
 ## RGB LED ##
 def rgb_toggle(switch):
     global current_brightness, current_color
@@ -97,7 +100,7 @@ def auto_adjust():
         current_color = utilities.colors_table["cool"]
     else:
         current_color = utilities.colors_table["warm"]
-    lux = sensor.visible/1e6 #sensor.lux
+    lux = get_lux()
     if lux<utilities.target_brightness and current_brightness<1.0:
         current_brightness += 0.1
     if lux>utilities.target_brightness and current_brightness>0.1:

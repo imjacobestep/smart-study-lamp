@@ -101,8 +101,12 @@ def test_tracking():
                 if cv2.waitKey(5) & 0xFF == 27:
                     break
 
+def test_database():
+    utilities.send_word(word="test")
+    utilities.send_lux()
+
 while True:
-    userIn = input("what do you want to test? adj, env, cam, or auto: ")
+    userIn = input("what do you want to test? adj, env, cam, auto, or db: ")
     if userIn == "adj":
         test_adjustment()
     if userIn == "env":
@@ -110,6 +114,8 @@ while True:
     if userIn == "cam":
         test_tracking()
     if userIn == "auto":
+        test_auto()
+    if userIn == "db":
         test_auto()
     if userIn == "exit":
         break
