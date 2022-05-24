@@ -91,14 +91,14 @@ def draw_rectangle(x, y, image):
     x2 = int(x + (utilities.crop_dimensions['width']/2))
     y1 = y
     y2 = y - utilities.crop_dimensions['height']
-    triangle = [(x-10,y-30), (x, y-20), (x+10,y-30)]
+    triangle = [(x-10,y-30), (x, y-utilities.finger_margin), (x+10,y-30)]
     rect_image = cv2.rectangle(img= image, pt1=(x1, y1), pt2=(x2, y2), color=(0, 255, 0))
     poly_image = cv2.polylines(img=rect_image, pts=np.array([triangle]), color=(255, 0, 0), isClosed=True)
     return poly_image
 
 def get_word(ocr_results):
     fx = utilities.crop_dimensions['width']/2
-    fy = utilities.crop_dimensions['height'] - 20
+    fy = utilities.crop_dimensions['height'] - utilities.finger_margin
     for i in range(len(ocr_results['text'])):
         xTest = (fx > ocr_results['left'][i]) and ((fx-ocr_results['left'][i]) < ocr_results['width'][i])
         yTest = (fy > ocr_results['top'][i]) and ((fy-ocr_results['top'][i]) < ocr_results['height'][i])
