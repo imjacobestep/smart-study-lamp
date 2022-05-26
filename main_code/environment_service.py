@@ -56,6 +56,9 @@ def rgb_toggle(switch):
 def rgb_update(brightness, color):
     global current_brightness, current_color
     value = tuple([x*brightness for x in color])
+    for colorval in value:
+        if colorval > 255:
+            colorval = 255
     rgb_led.fill(value)
     rgb_led.show()
     current_brightness, current_color = brightness, color
