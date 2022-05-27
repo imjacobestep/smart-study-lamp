@@ -55,6 +55,7 @@ def start_camera():
     global lock, camera_switch
     #lock.acquire()
     camera_switch = True
+    print("camera on")
     #lock.release()
     camera.start()
 
@@ -62,6 +63,7 @@ def stop_camera():
     global lock, camera_switch
     #lock.acquire()
     camera_switch = False
+    print("camera off")
     #lock.release()
     camera.join()
 
