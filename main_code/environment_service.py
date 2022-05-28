@@ -25,8 +25,8 @@ current_color = utilities.colors_table["neutral"]
 current_brightness = 1.0
 
 #main
-GPIO.setup(utilities.pin_table["cool led data"], GPIO.OUT)
-GPIO.setup(utilities.pin_table["warm led data"], GPIO.OUT)
+# GPIO.setup(utilities.pin_table["cool led data"], GPIO.OUT)
+# GPIO.setup(utilities.pin_table["warm led data"], GPIO.OUT)
 pwm_cool = hpwm(pwm_channel=0,hz=20000)
 pwm_warm = hpwm(pwm_channel=1,hz=20000)
 pwm_cool.start(0)

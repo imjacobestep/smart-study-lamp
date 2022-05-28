@@ -4,19 +4,19 @@ from skimage import io
 from matplotlib import pyplot as plt
 import time
 import pyttsx3
-import pymysql
+import pyodbc
+import pymssql
 import random
-import environment_service
 
 ## VARIABLES ##
 pin_table = {
   "led brightness": 27,
   "led color": 6,
   "auto switch": 5,
-  "cool led data": 12,
-  "warm led data": 13,
+#   "cool led data": 18,
+#   "warm led data": 19,
   "color led data": 10,
-  "camera switch": 19,
+  "camera switch": 22,
 }
 
 colors_table = {
@@ -43,10 +43,12 @@ password = '515Team13'
 #driver = 'FreeTDS'
 driver = '/usr/lib/arm-linux-gnueabihf/odbc/libtdsodbc.so'
 userID = "Test2"
-#connection = pymssql.connect('DRIVER='+driver+';PORT=1433;SERVER='+server+';PORT=1443;DATABASE='+database+';UID='+username+';PWD='+ password)
+
 #connection = pymssql.connect(server, username, password, database)
-pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password + ';TDS_Version=8.0')
-cursor = connection.cursor(as_dict=True)
+connection = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password + ';TDS_Version=7.0')
+cursor = connection.cursor()
+
+import environment_service
 
 ## FUNCTIONS ##
 def load_image(filepath):
@@ -84,7 +86,7 @@ def send_word(word):
     connection.commit()
     print("finished")
 
-def send_lux()
+def send_lux():
     readingID = random.randint(1,200000)
     lux = environment_service.get_lux()
     if abs(lux - target_brightness) < 2:
