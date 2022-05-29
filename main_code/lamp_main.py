@@ -123,8 +123,11 @@ while True:
     #led management
     if GPIO.input(utilities.pin_table["auto switch"]):
         environment_service.auto_adjust()
+        print("led auto adjust")
     else:
         if btnColor.is_pressed:
             environment_service.manual_color()
+            print("manual color change")
         if btnBrightness.is_pressed:
             environment_service.manual_brightness()
+            print("manual brightness change")
