@@ -1,4 +1,5 @@
 ## IMPORTS ##
+from tracemalloc import stop
 import environment_service
 import camera_service
 import utilities
@@ -10,11 +11,14 @@ from picamera.array import PiRGBArray
 from io import BytesIO
 import time
 import cv2
+from gpiozero import Button
 
 ## VARIABLES ##
 lock = threading.Lock()
 
 camera_switch = True
+btnBrightness=Button(utilities.pin_table["led brightness"])
+btnColor=Button(utilities.pin_table["led color"])
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
@@ -57,7 +61,8 @@ def start_camera():
     camera_switch = True
     print("camera on")
     #lock.release()
-    camera.start()
+    if not camera.is_alive():
+        camera.start()
 
 def stop_camera():
     global lock, camera_switch
@@ -65,10 +70,11 @@ def stop_camera():
     camera_switch = False
     print("camera off")
     #lock.release()
-    camera.join()
+    if camera.is_alive():
+        camera.join()
 
 def camera_loop(lock):
-    global cap, camera_switch
+    global camera_switch
     cap = cv2.VideoCapture(-1)
     x,y = 0,0
     with mp_hands.Hands(
@@ -103,13 +109,22 @@ def camera_loop(lock):
     cap.release()
 
 ## MAIN LOOP ##
+camera_switch = GPIO.input(utilities.pin_table["camera switch"])
 camera = threading.Thread(target=camera_loop, args=(lock, ))
 while True:
-    camera_change()
-    if check_pin("auto switch"):
+    #camera management
+    if GPIO.input(utilities.pin_table["auto switch"]) and not camera_switch:
+        camera_switch = True
+        start_camera()
+    elif (not GPIO.input(utilities.pin_table["auto switch"])) and camera_switch:
+        camera_switch = False
+        stop_camera()
+
+    #led management
+    if GPIO.input(utilities.pin_table["auto switch"]):
         environment_service.auto_adjust()
     else:
-        if check_pin("led color"):
+        if btnColor.is_pressed:
             environment_service.manual_color()
-        if check_pin("led brightness"):
+        if btnBrightness.is_pressed:
             environment_service.manual_brightness()
