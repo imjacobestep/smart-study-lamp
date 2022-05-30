@@ -105,8 +105,12 @@ def test_database():
     utilities.send_word(word="test")
     utilities.send_lux()
 
+def test_database2():
+    utilities.send_word2(word="test")
+    utilities.send_lux2()
+
 while True:
-    userIn = input("what do you want to test? adj, env, cam, auto, or db: ")
+    userIn = input("what do you want to test? adj, env, cam, auto, db, or db2: ")
     if userIn == "adj":
         test_adjustment()
     if userIn == "env":
@@ -116,6 +120,8 @@ while True:
     if userIn == "auto":
         test_auto()
     if userIn == "db":
-        test_auto()
+        test_database()
+    if userIn == "db2":
+        test_database2()
     if userIn == "exit":
         break
