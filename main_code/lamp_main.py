@@ -111,23 +111,36 @@ def camera_loop(lock):
 ## MAIN LOOP ##
 camera_switch = GPIO.input(utilities.pin_table["camera switch"])
 camera = threading.Thread(target=camera_loop, args=(lock, ))
+counter=0
+
+#environment_service.rgb_update(brightness=0, color=[0,0,0])
+
+
 while True:
-    #camera management
-    if GPIO.input(utilities.pin_table["auto switch"]) and not camera_switch:
-        camera_switch = True
-        start_camera()
-    elif (not GPIO.input(utilities.pin_table["auto switch"])) and camera_switch:
-        camera_switch = False
-        stop_camera()
+    #csamera management
+    #Commented by Sumayyah
+#     if GPIO.input(utilities.pin_table["auto switch"]) and not camera_switch:
+#         camera_switch = True
+#         start_camera()
+#     elif (not GPIO.input(utilities.pin_table["auto switch"])) and camera_switch:
+#         camera_switch = False
+#         stop_camera()
+    #End Commented by Sumayyah
 
     #led management
-    if GPIO.input(utilities.pin_table["auto switch"]):
+    IsAuto=GPIO.input(utilities.pin_table["auto switch"])
+    if IsAuto:
         environment_service.auto_adjust()
         print("led auto adjust")
     else:
+        print("led manual adjust")
         if btnColor.is_pressed:
             environment_service.manual_color()
-            print("manual color change")
+            print(f"manual color change {counter}")
+            #time.sleep(0.2)
         if btnBrightness.is_pressed:
             environment_service.manual_brightness()
             print("manual brightness change")
+    time.sleep(0.2)
+    counter+=1
+    
