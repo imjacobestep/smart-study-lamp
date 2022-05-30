@@ -8,9 +8,11 @@ import pyodbc
 import pymssql
 import random
 
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
+# Commented by Sumayyah
+# import firebase_admin
+# from firebase_admin import credentials
+# from firebase_admin import firestore
+# end Commented by Sumayyah
 
 ## VARIABLES ##
 pin_table = {
@@ -49,9 +51,12 @@ driver = '/usr/lib/arm-linux-gnueabihf/odbc/libtdsodbc.so'
 userID = "Test2"
 
 ## CLOUD FIRESTORE SETUP ##
-cred = credentials.Certificate("../smart-study-lamp-firebase-adminsdk-pgq1y-eeb5253a08.json")
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+
+# Commented by Sumayyah
+# cred = credentials.Certificate("../smart-study-lamp-firebase-adminsdk-pgq1y-eeb5253a08.json")
+# firebase_admin.initialize_app(cred)
+# db = firestore.client()
+# end Commented by Sumayyah
 
 #connection = pymssql.connect(server, username, password, database)
 connection = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password + ';TDS_Version=7.0')
