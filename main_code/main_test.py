@@ -102,10 +102,6 @@ def test_tracking():
                     break
 
 def test_database():
-    utilities.send_word(word="test")
-    utilities.send_lux()
-
-def test_database2():
     utilities.send_word2(word="test")
     utilities.send_lux2()
 
@@ -121,7 +117,5 @@ while True:
         test_auto()
     if userIn == "db":
         test_database()
-    if userIn == "db2":
-        test_database2()
     if userIn == "exit":
         break

@@ -20,25 +20,8 @@ import time
 ## VARIABLES ##
 stream = BytesIO()
 last_x, last_y, last_moved = 0,0,time.time()
-#x_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-#y_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 ## FUNCTIONS ##
-'''def track_movement_old(image, x, y):
-    if(len(x_pos) > 0):
-        x_pos.pop(0)
-        y_pos.pop(0)
-    x_pos.append(x)
-    y_pos.append(y)
-    point = False
-
-    if( ( (x_pos[len(x_pos) - 1] - x_pos[0]) < 4 ) and ( (y_pos[len(y_pos) - 1] - y_pos[0]) < 4 ) and ( (y_pos[len(y_pos) // 2] - y_pos[0]) < 4 ) ):
-        point = True
-    else:
-        point = False
-    if(point):
-        execute_point(image, x,y)
-        print("point")'''
 
 def track_movement(image, x, y):
     global last_x, last_y, last_moved
@@ -59,6 +42,7 @@ def execute_point(image, x,y):
     word_results = get_word(ocr_results)
     if word_results[0]:
         output_text = utilities.get_definition(word_results[1])
+        utilities.send_word(word_results[1])
         utilities.speak(output_text)
     utilities.wait(1)
 

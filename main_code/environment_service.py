@@ -131,7 +131,7 @@ def auto_adjust():
     if current_brightness<0:
         current_brightness=0
 
-        
+    utilities.send_lux()
     #rgb_update(brightness=current_brightness, color=current_color)
     main_update(brightness=current_brightness, color=current_color)
 
