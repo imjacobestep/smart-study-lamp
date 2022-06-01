@@ -75,6 +75,7 @@ def stop_camera():
 
 def camera_loop(lock):
     global camera_switch
+    print("camera started")
     cap = cv2.VideoCapture(-1)
     x,y = 0,0
     with mp_hands.Hands(
@@ -107,6 +108,7 @@ def camera_loop(lock):
                 if not cont:
                     break
     cap.release()
+    print("camera ended")
 
 ## MAIN LOOP ##
 camera_switch = GPIO.input(utilities.pin_table["camera switch"])
