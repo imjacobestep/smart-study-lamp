@@ -57,7 +57,7 @@ def get_lux():
 ## RGB LED ##
 def rgb_toggle(switch):
     global current_brightness, current_color
-    if switch:
+    if not switch:
         rgb_update(brightness=0.0, color=current_color)
     else:
         rgb_update(brightness=current_brightness, color=current_color)
@@ -79,7 +79,7 @@ def rgb_update(brightness, color):
 ## Main LED ##
 def main_toggle(switch):
     global current_brightness, current_color
-    if switch:
+    if not switch:
         main_update(brightness=0.0, color=current_color)
     else:
         main_update(brightness=current_brightness, color=current_color)
@@ -105,13 +105,11 @@ def main_update(brightness, color):
 def special_color(switch):
     global current_brightness, current_color, sensor
     if switch:
-        current_color=utilities.colors_table["special"]
-        #main_toggle(False)
-        #main_update(brightness=current_brightness/2, color=current_color)
-        rgb_update(brightness=current_brightness, color=utilities.colors_table["special"])
+        main_toggle(False)
+        rgb_update(brightness=1, color=utilities.colors_table["special"])
     else:
-        rgb_update(brightness=current_brightness, color=current_color)
-        main_update(brightness=current_brightness, color=current_color)
+        rgb_toggle(False)
+        main_toggle(True)
 
 def auto_adjust():
     global current_brightness, current_color, sensor

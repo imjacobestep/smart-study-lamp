@@ -25,18 +25,20 @@ last_x, last_y, last_moved = 0,0,time.time()
 
 def track_movement(image, x, y):
     global last_x, last_y, last_moved
-    if (abs(last_x - x) <= utilities.movement_margin) and (abs(last_y - y) <= utilities.movement_margin) and (time.time()-last_moved < 1):
+    xCheck = abs(last_x - x) <= utilities.movement_margin
+    yCheck = abs(last_y - y) <= utilities.movement_margin
+    delayCheck = time.time()-last_moved < 1
+    if xCheck and yCheck and delayCheck:
         last_x, last_y = x, y
         execute_point(image, x, y)
-        return
-    last_moved = time.time()
-    last_x, last_y = x, y
-    #print("last moved: " + str(last_moved))
-    return
+    else:
+        last_moved = time.time()
+        last_x, last_y = x, y
 
 def execute_point(image, x,y):
     environment_service.play_sound(0)
     environment_service.special_color(True) #create learning environment
+    
     processed_image = process_image(image, x, y)
     ocr_results = get_ocr(processed_image=processed_image)
     word_results = get_word(ocr_results)
