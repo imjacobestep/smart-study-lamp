@@ -4,7 +4,7 @@ from firebase_admin import firestore
 import random
 
 ## CLOUD FIRESTORE SETUP ##
-cred = credentials.Certificate("smart-study-lamp-firebase-adminsdk-pgq1y-eeb5253a08.json")
+cred = credentials.Certificate("../smart-study-lamp-firebase-adminsdk-pgq1y-eeb5253a08.json")
 default_app = firebase_admin.initialize_app(cred)
 db = firestore.client()
 

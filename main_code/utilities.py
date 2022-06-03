@@ -58,7 +58,7 @@ def speak(text):
 
 def get_definition(word):
     definition = ""
-    #definition = dictionary.meaning(word)
+    definition = dictionary.meaning(word)
     print("word detected: " + word)
     output_text = ("This word is pronounced: " + str(word) + ". Here is its definition: " + str(definition))
     return output_text
@@ -71,7 +71,7 @@ def wait(seconds):
 def send_word(word):
     wordID = random.randint(1,200000)
     print("uploading word...")
-    word_doc = db.collection('words').document(wordID)
+    word_doc = db.collection('words').document(str(wordID))
     word_doc.set({
         'word':word,
         'learned': False
