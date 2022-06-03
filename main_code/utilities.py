@@ -13,7 +13,7 @@ from firebase_admin import firestore
 ## VARIABLES ##
 pin_table = {
   "led brightness": 27,
-  "led color": 6,
+  "led color": 26,
   "auto switch": 5,
 #   "cool led data": 18,
 #   "warm led data": 19,
