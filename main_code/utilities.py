@@ -80,13 +80,14 @@ def send_word(word):
 
 def send_lux():
     readingID = random.randint(1,200000)
-    lux = environment_service.get_lux()
+    #lux = environment_service.get_lux()
     if abs(lux - target_brightness) < 2:
+    if lux < target_brightness:
         at_target = 1
     else:
         at_target = 0
     print("uploading lux...")
-    lux_doc = db.collection('environment').document(readingID)
+    lux_doc = db.collection('environment').document(str(readingID))
     lux_doc.set({
         'reading': lux,
         'meets_target': at_target
