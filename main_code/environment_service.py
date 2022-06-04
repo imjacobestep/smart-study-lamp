@@ -43,6 +43,7 @@ pwm_warm.start(100)
 
 #other
 looping = True
+last_sent = time.time()
 
 ## FUNCTIONS ##
 def play_sound(sound):
@@ -112,7 +113,7 @@ def special_color(switch):
         main_toggle(True)
 
 def auto_adjust():
-    global current_brightness, current_color, sensor
+    global current_brightness, current_color, sensor, last_sent
     currenttime=datetime.now().strftime("%H:%M:%S")
     if "06:00:00" < currenttime < "17:00:00":
         current_color = utilities.colors_table["cool"]
@@ -129,7 +130,9 @@ def auto_adjust():
     if current_brightness<0:
         current_brightness=0
 
-    utilities.send_lux()
+    if time.time() - last_sent > 5:
+        last_sent = time.time()
+        utilities.send_lux()
     #rgb_update(brightness=current_brightness, color=current_color)
     main_update(brightness=current_brightness, color=current_color)
 
