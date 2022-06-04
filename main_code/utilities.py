@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt
 import time
 import pyttsx3
 import random
+from PyDictionary import PyDictionary as dictionary
 
 import firebase_admin
 from firebase_admin import credentials
@@ -58,7 +59,7 @@ def speak(text):
 
 def get_definition(word):
     definition = ""
-    definition = dictionary.meaning(word)
+    #definition = dictionary.meaning(word)
     print("word detected: " + word)
     output_text = ("This word is pronounced: " + str(word) + ". Here is its definition: " + str(definition))
     return output_text
@@ -80,16 +81,16 @@ def send_word(word):
 
 def send_lux():
     readingID = random.randint(1,200000)
-    #lux = environment_service.get_lux()
-    if abs(lux - target_brightness) < 2:
-    if lux < target_brightness:
+    lux = environment_service.get_lux()
+    #if abs(lux - target_brightness) < 2:
+    if lux >= target_brightness:
         at_target = 1
     else:
         at_target = 0
-    print("uploading lux...")
+    #print("uploading lux...")
     lux_doc = db.collection('environment').document(str(readingID))
     lux_doc.set({
         'reading': lux,
         'meets_target': at_target
     })
-    print("finished")
+    #print("finished")
