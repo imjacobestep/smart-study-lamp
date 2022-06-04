@@ -6,7 +6,7 @@ Any of you can edit this file or add additional files, just remember to push you
 
 Raspberry Pi username: pi <br />
 Raspberry Pi password: team13 <br />
-Raspberry Pi IP address: 10.19.116.83 <br />
+Raspberry Pi IP address: 10.19.31.56 <br />
 # Database:
 Queries are in sql_queries.txt <br />
 server: lamp-server <br />

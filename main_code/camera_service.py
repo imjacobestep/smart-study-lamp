@@ -36,7 +36,7 @@ def track_movement(image, x, y):
         last_x, last_y = x, y
 
 def execute_point(image, x,y):
-    environment_service.play_sound(0)
+    #environment_service.play_sound(0)
     environment_service.special_color(True) #create learning environment
     
     processed_image = process_image(image, x, y)
@@ -48,7 +48,7 @@ def execute_point(image, x,y):
         utilities.speak(output_text)
     utilities.wait(1)
 
-    environment_service.play_sound(1)
+    #environment_service.play_sound(1)
     environment_service.special_color(False) #exit learning environment
     utilities.wait(2)
 
