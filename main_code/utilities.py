@@ -36,6 +36,8 @@ crop_dimensions = {
 target_brightness = 60
 movement_margin = 10
 finger_margin = 35
+engine = pyttsx3.init()
+engine.setProperty('rate', 105)
 
 ## CLOUD FIRESTORE SETUP ##
 cred = credentials.Certificate("../smart-study-lamp-firebase-adminsdk-pgq1y-eeb5253a08.json")
@@ -54,7 +56,9 @@ def show_image(image):
     plt.show()
 
 def speak(text):
-    pyttsx3.speak(text)
+    #pyttsx3.speak(text)
+    engine.say(text)
+    engine.runAndWait()
 
 def get_definition(word):
     definition = ""
