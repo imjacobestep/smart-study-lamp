@@ -122,6 +122,26 @@ def auto_adjust():
         current_color = utilities.colors_table["warm"]
     lux = get_lux()
     print (f"lux = {lux}, brightness={current_brightness}")
+    error=utilities.target_brightness-lux
+    current_brightness+=0.1*error
+    if current_brightness>1:
+        current_brightness=1
+    if current_brightness<0:
+        current_brightness=0
+
+    utilities.send_lux()
+    #rgb_update(brightness=current_brightness, color=current_color)
+    main_update(brightness=current_brightness, color=current_color)
+
+def auto_adjust_old():
+    global current_brightness, current_color, sensor
+    currenttime=datetime.now().strftime("%H:%M:%S")
+    if "06:00:00" < currenttime < "17:00:00":
+        current_color = utilities.colors_table["cool"]
+    else:
+        current_color = utilities.colors_table["warm"]
+    lux = get_lux()
+    print (f"lux = {lux}, brightness={current_brightness}")
     if lux<utilities.target_brightness and current_brightness<1.0:
         current_brightness += 0.1
     if lux>utilities.target_brightness and current_brightness>0.1:

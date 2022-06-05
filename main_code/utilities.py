@@ -34,7 +34,7 @@ crop_dimensions = {
     "height": 115
 }
 
-target_brightness = 60
+target_brightness = 7
 movement_margin = 10
 finger_margin = 35
 
