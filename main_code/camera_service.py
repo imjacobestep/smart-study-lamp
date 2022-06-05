@@ -36,12 +36,11 @@ def track_movement(image, x, y):
         last_x, last_y = x, y
 
 def execute_point(image, x,y):
-    #environment_service.play_sound(0)
-    environment_service.special_color(True) #create learning environment
-    
+    #environment_service.play_sound(0)    
     processed_image = process_image(image, x, y)
     ocr_results = get_ocr(processed_image=processed_image)
     word_results = get_word(ocr_results)
+    environment_service.special_color(True) #create learning environment
     if word_results[0]:
         output_text = utilities.get_definition(word_results[1])
         utilities.send_word(word_results[1])

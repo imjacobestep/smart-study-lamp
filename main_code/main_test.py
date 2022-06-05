@@ -39,7 +39,7 @@ def test_learning_env():
     environment_service.special_color(True) #create learning environment
 
     output_text = utilities.get_definition("test")
-    utilities.speak(output_text)
+    #utilities.speak(output_text)
     utilities.wait(1)
 
     environment_service.play_sound(1)
@@ -85,6 +85,7 @@ def test_tracking():
                     for hand_landmarks in results.multi_hand_landmarks:
                         x = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x * image_width
                         y = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y * image_height
+                        y -= 30
                         print("Index fingertip at: " + str(x) + ", " + str(y))
                         #track_movement(x, y)
                         camera_service.track_movement(image, x,y)

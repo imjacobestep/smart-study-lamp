@@ -61,8 +61,8 @@ def start_camera():
     camera_switch = True
     print("camera on")
     #lock.release()
-    if not camera.is_alive():
-        camera.start()
+    if not camera_thread.is_alive():
+        camera_thread.start()
 
 def stop_camera():
     global lock, camera_switch
@@ -70,8 +70,8 @@ def stop_camera():
     camera_switch = False
     print("camera off")
     #lock.release()
-    if camera.is_alive():
-        camera.join()
+    if camera_thread.is_alive():
+        camera_thread.join()
 
 def camera_loop(lock):
     global camera_switch
@@ -102,7 +102,7 @@ def camera_loop(lock):
                             mp_drawing_styles.get_default_hand_connections_style())
                 cv2.imshow('MediaPipe Hands', cv2.resize(camera_service.draw_rectangle(image=image, x=x, y=y), (852,480)))
                 rawCapture.truncate(0)
-                lock.aquire()
+                lock.acquire()
                 cont = camera_switch
                 lock.release()
                 if not cont:
@@ -112,7 +112,7 @@ def camera_loop(lock):
 
 ## MAIN LOOP ##
 camera_switch = GPIO.input(utilities.pin_table["camera switch"])
-camera = threading.Thread(target=camera_loop, args=(lock, ))
+camera_thread = threading.Thread(target=camera_loop, args=(lock, ))
 counter=0
 
 #environment_service.rgb_update(brightness=0, color=[0,0,0])
@@ -121,12 +121,12 @@ counter=0
 while True:
     #csamera management
     #Commented by Sumayyah
-#     if GPIO.input(utilities.pin_table["auto switch"]) and not camera_switch:
-#         camera_switch = True
-#         start_camera()
-#     elif (not GPIO.input(utilities.pin_table["auto switch"])) and camera_switch:
-#         camera_switch = False
-#         stop_camera()
+    #if GPIO.input(utilities.pin_table["auto switch"]) and not camera_switch:
+        #camera_switch = True
+     #   start_camera()
+    #elif (not GPIO.input(utilities.pin_table["auto switch"])) and camera_switch:
+        #camera_switch = False
+     #   stop_camera()
     #End Commented by Sumayyah
 
     #led management
