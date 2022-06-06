@@ -1,7 +1,7 @@
 *to pull down new updates to the pi:
 git pull
 username: imjacobestep
-token: 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
+token: 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
 
 it might say you have changes that need to be synced before it can pull. in that case:
 *to reset back to last version pulled from github
