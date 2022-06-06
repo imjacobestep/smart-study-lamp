@@ -6,6 +6,8 @@ import time
 import pyttsx3
 import random
 from PyDictionary import PyDictionary as dictionary
+import requests
+from bs4 import BeautifulSoup
 
 import firebase_admin
 from firebase_admin import credentials
@@ -40,6 +42,7 @@ finger_margin = 35
 engine = pyttsx3.init()
 engine.setProperty('rate', 105)
 
+
 ## CLOUD FIRESTORE SETUP ##
 cred = credentials.Certificate("../smart-study-lamp-firebase-adminsdk-pgq1y-eeb5253a08.json")
 firebase_admin.initialize_app(cred)
@@ -48,6 +51,9 @@ db = firestore.client()
 import environment_service
 
 ## FUNCTIONS ##
+def _get_soup_object(url, parser="html.parser"):
+    return BeautifulSoup(requests.get(url).text, parser)
+
 def load_image(filepath):
     img = io.imread(filepath)
     return img
@@ -63,7 +69,7 @@ def speak(text):
 
 def get_definition(word):
     definition = ""
-    #definition = dictionary.meaning(word)
+    #definition = dictionary.meaning(word)["Noun"][0]
     print("word detected: " + word)
     output_text = ("This word is pronounced: " + str(word) + ". Here is its definition: " + str(definition))
     return output_text
@@ -73,13 +79,45 @@ def wait(seconds):
     while time.time()-start < seconds:
         pass
 
+def usage(term, min_length= 5, disable_errors=False):
+        """
+        :param term: The word we are looking for meanings and usages
+        :param min_length: minimum length of the sentence to filter on
+        :param disable_errors: if False, print errors if there is some error
+        :return: returns a dictionary with keys begin (noun, verb). One with meanings and other with usages
+        """
+        if len(term.split()) > 1:
+            print("Error: A Term must be only a single word")
+        else:
+            try:
+                html = _get_soup_object("http://wordnetweb.princeton.edu/perl/webwn?s={0}".format(term))
+                types = html.findAll("h3")
+                length = len(types)
+                lists = html.findAll("ul")
+                usage_out = []
+                for a in types:
+                    reg = str(lists[types.index(a)])
+                    for x in reg.findall(r"<i>\"(.*?)\"", reg):
+                        if 'often followed by' in x:
+                            pass
+                        elif len(x) >= min_length and term in str(x):
+                            usage_out.append(x)
+                return usage_out
+            except Exception as e:
+                if disable_errors == False:
+                    print("Error: The Following Error occured: %s" % e)
+
 def send_word(word):
     wordID = random.randint(1,200000)
     print("uploading word...")
+    definition = dictionary.meaning(word)["Noun"][0]
+    use = usage(word)
     word_doc = db.collection('words').document(str(wordID))
     word_doc.set({
         'word':word,
-        'learned': False
+        'learned': False,
+        'definition': definition,
+        'use': use[0]
     })
     print("finished")
 
@@ -98,3 +136,4 @@ def send_lux():
         'meets_target': at_target
     })
     #print("finished")
+

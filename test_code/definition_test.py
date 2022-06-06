@@ -6,4 +6,4 @@ def define(word):
   return dictionary.meaning(word)
 
 userIn = input("type word to define: ")
-print(define(userIn))
+print(define(userIn)["Noun"][0])
