@@ -108,21 +108,22 @@ def usage(term, min_length= 5, disable_errors=False):
                     print("Error: The Following Error occured: %s" % e)
 
 def send_word(word):
-    wordID = random.randint(1,200000)
+    #wordID = random.randint(1,200000)
+    wordID = time.time()
     print("uploading word...")
-    definition = dictionary.meaning(word)["Noun"][0]
-    use = usage(word)
+    #definition = dictionary.meaning(word)["Noun"][0]
+    #use = usage(word)
     word_doc = db.collection('words').document(str(wordID))
     word_doc.set({
-        'word':word,
+        'word': word,
         'learned': False,
-        'definition': definition,
-        'use': use[0]
+        'definition': "This is the definition of the word",
+        'use': "This is the word used in a sentence"
     })
     print("finished")
 
 def send_lux():
-    readingID = random.randint(1,200000)
+    readingID = time.time()
     lux = environment_service.get_lux()
     #if abs(lux - target_brightness) < 2:
     if lux >= target_brightness:

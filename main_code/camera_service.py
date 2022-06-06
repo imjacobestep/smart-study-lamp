@@ -1,5 +1,6 @@
 ## IMPORTS ##
 from skimage import io
+import string
 import pytesseract
 from io import BytesIO
 from matplotlib import pyplot as plt
@@ -90,6 +91,8 @@ def get_word(ocr_results):
         if(xTest and yTest and float(ocr_results["conf"][i]) > 0):
         #data = [i, ocr_results['text'][i], ocr_results['left'][i], ocr_results['top'][i], ocr_results['width'][i], ocr_results['height'][i]]
             found_word = ocr_results['text'][i]
+            found_word = found_word.translate(str.maketrans('', '', string.punctuation))
+            found_word = found_word.lower()
             return(True, found_word)
     return (False, '----fail----')
 '''

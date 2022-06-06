@@ -8,8 +8,8 @@ from PyDictionary import PyDictionary as dictionary
 import re
 
 ## CLOUD FIRESTORE SETUP ##
-#cred = credentials.Certificate("../smart-study-lamp-firebase-adminsdk-pgq1y-eeb5253a08.json")
-cred = credentials.Certificate("smart-study-lamp-firebase-adminsdk-pgq1y-eeb5253a08.json")
+cred = credentials.Certificate("../smart-study-lamp-firebase-adminsdk-pgq1y-eeb5253a08.json")
+#cred = credentials.Certificate("smart-study-lamp-firebase-adminsdk-pgq1y-eeb5253a08.json")
 default_app = firebase_admin.initialize_app(cred)
 db = firestore.client()
 
@@ -54,7 +54,7 @@ def test(word):
         'word':word,
         'learned': False,
         'definition': definition,
-        'use': use[0]
+        'use': "This is the word used in a sentence"
     })
     print("finished")
 
