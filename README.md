@@ -1,18 +1,4 @@
-# smart-study-lamp
-We can share our code here. <br />
-
-This is a readme file, where we can add important links, the pi IP address, etc. <br />
-Any of you can edit this file or add additional files, just remember to push your changes (the desktop UI or web versions make this easiest instead of command line) <br />
-
-Raspberry Pi username: pi <br />
-Raspberry Pi password: team13 <br />
-Raspberry Pi IP address: 10.19.31.56 <br />
-# Database:
-Queries are in sql_queries.txt <br />
-server: lamp-server <br />
-database: lampdb <br />
-username: smart-study-lamp <br />
-password: 515Team13 <br />
+This contains the main code for a smart study lamp prototype made as a project for GIX TECHIN 515 Hardware/Software Lab 2 in Spring 2022
 
 # Variables:
 These values are centralized in utilities.py: <br />
